@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "learning concept checking the hard way - part 2"
+title: "learning concept checking the hard way - P2"
 date: 2014-03-24 18:38
 comments: true
 categories: code programming cpp templates concept-checking
@@ -17,7 +17,7 @@ that type or not at the **compile time**
 Let's first look at some of the c++ concepts which we'll use in the
 process.
 
-### 1. decltype
+## 1. decltype
 (since c++11)
 
 `decltype` let's you extract type from any expression. It's available in
@@ -27,7 +27,7 @@ For example, In the example below, decltype can be used to get the type
 of variable `myType1` and used to define another variable with the same
 type.
 
-```cpp
+{% highlight cpp %}
 //dec.cpp file
 class MyType{
 public:
@@ -45,11 +45,12 @@ int main(int argc, const char * argv[])
 Mytype: constructor called.
 Mytype: constructor called.
 
-```
+{% endhighlight %}
+
 
 **Takeaway**: we can use **decltype** to get type of a variable.
-<!-- more -->
-### 2. declval
+
+## 2. declval
 (since c++11)
 
 `declval` creates a default constructed type of its argument for use in type checking. It never returns a value. 
@@ -63,7 +64,8 @@ have a "default" constructor. If you uncomment the line number 6, the compilatio
 
 
 Example, taken from [cpp reference](http://naipc.uchicago.edu/2014/ref/cppreference/en/cpp/utility/declval.html)
-```cpp
+
+{% highlight cpp %}
 struct Default {
     int foo() const {return 1;}
 };
@@ -81,36 +83,37 @@ int main()
     decltype(std::declval<NonDefault>().foo()) n2 = n1; // int n2
     std::cout << "n2 = " << n2 << '\n';
 }
-```
+{% endhighlight %}
 
-### 3. constexpr 
+## 3. constexpr 
 (since c++11)
 
 `constexpr` gives you a constant at the compile time instead of runtime
 constant that you get using `const` keyword.
 
-```cpp
+{% highlight cpp %}
 constexpr int CreateConstant (int a, int b) { return a * b; }
 const int arraySize = CreateConstant(2,3);
-```
+{% endhighlight %}
 
 `arraySize` will be calculated at the compile time here.
 
-### 4. static_assert
+## 4. static_assert
 (since c++11)
 
 Performs compile-time assertion checking
-```cpp
+
+{% highlight cpp %}
 //will give you a compile time assertion failure error. 
 int main(int argc, const char * argv[])
 {
     static_assert(1==2, "Assertion failed.");
     return 0;
 }
-```
+{% endhighlight %}
 
 
-### 5. Template specialization
+## 5. Template specialization
 
 Templates in c++ are turing complete and you can do lot of cool stuff
 with them. Some trivia about templates:
@@ -129,7 +132,7 @@ with them. Some trivia about templates:
    specialized template which is both syntactically and semantically correct.
 
 
-```cpp
+{% highlight cpp %}
 
 // This is a valid code and will compile just fine
 template <typename T>
@@ -148,8 +151,7 @@ int main(int argc, const char * argv[]){
     hello<int>(2);
     return 0;
 }
-
-```
+{% endhighlight %}
 
 
 * **Substitution failure is not an error (SFINAE)**
@@ -169,7 +171,7 @@ the invocation is well-formed. Check out more about SFINANE on [wikipedia](http:
   example below compiler has two candidates for `hello<int>`. Compiler
   chooses the non-variadic one.
 
-```cpp
+{% highlight cpp %}
 template <typename T>
 // Note the variadic(...) arguments
 void hello(...){
@@ -186,7 +188,8 @@ int main(int argc, const char * argv[]){
 }
 >> ./a.out
 non-variadic method.
-```
+{% endhighlight %}
+
 
 ---
 

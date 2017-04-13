@@ -192,7 +192,7 @@ Splat operator can possibly be used in several creative ways. If you
 know some other way that splash could be used feel free to suggest it in comments.
 
 
-References/Further Reading:
+## References/Further Reading:
 
 1. http://endofline.wordpress.com/2011/01/21/the-strange-ruby-splat/
 2. http://www.jacopretorius.net/2012/01/splat-operator-in-ruby.html
