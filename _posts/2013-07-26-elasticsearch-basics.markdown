@@ -16,23 +16,23 @@ Analyzers basically helps you in analyzing your data.`:o` You need to analyze da
 
 Creating indexes mainly involves three steps: 
 
-* **Pre-processing of raw text** using [char filters ]( http://www.elasticsearch.org/guide/reference/index-modules/analysis/mapping-charfilter/). This may be used to strip html tags, or you may define your custom mapping.  (*Couldn't find a way to test this using analyse api. Please put it in comments if you know some way to test these through Analyze Api*) 
+* **Pre-processing of raw text** using [char filters]( http://www.elasticsearch.org/guide/reference/index-modules/analysis/mapping-charfilter/). This may be used to strip html tags, or you may define your custom mapping.  (*Couldn't find a way to test this using analyse api. Please put it in comments if you know some way to test these through Analyze Api*) 
 
 
 Example: You could use a **char-filter** of type [`html_strip`](http://www.elasticsearch.org/guide/reference/index-modules/analysis/htmlstrip-charfilter/) to strip out html tags.  
 
 A text like this:
 
-```html
+{% highlight html %}
 <p> Learn Something New Today! which is <b>always</b> fun </p>
-```
+{% endhighlight %}
 
 would get converted to:
 
 
-```
+{% highlight html %}
 Learn Something New Today! which is always fun
-```
+{% endhighlight %}
 <!-- more -->
 
 * **Tokenization of the pre-processed text** using tokenizers. Tokenizers breaks the pre-processed text into tokens. There are different kind of tokenizers available and each of them breaks the text into words differently. By default elasticsearch uses [standard tokenizer](http://www.elasticsearch.org/guide/reference/index-modules/analysis/standard-tokenizer/). 
@@ -50,12 +50,12 @@ gets broken as
 
 You could check for yourself using Analyze Api mentioned above.
 
-```bash
-curl -XGET 'localhost:9200/_analyze?tokenizer=standard' -d 'Learn Something New Today! which is always fun'
-```
-<a class="link1" id="show-hide-link-1">show/hide the output</a>
-<div class="foldable" id="show-hide-block-1">
-```javascript
+{% highlight sh %}
+curl -XGET 'localhost:9200/_analyze?tokenizer=standard' \
+    -d 'Learn Something New Today! which is always fun'
+{% endhighlight %}
+
+{% highlight javascript %}
 {
     "tokens": [
         {
@@ -116,9 +116,7 @@ curl -XGET 'localhost:9200/_analyze?tokenizer=standard' -d 'Learn Something New 
         }
     ]
 }
-```
-<a class="link1">hide</a>
-</div>
+{% endhighlight %}
 
 * After the tokenization, **token filters** performs further operations on the processed text like converting it to [lowercase](http://www.elasticsearch.org/guide/reference/index-modules/analysis/lowercase-tokenfilter.html) or [reversing](http://www.elasticsearch.org/guide/reference/index-modules/analysis/reverse-tokenfilter/) of tokens.
 
@@ -133,12 +131,14 @@ gets broken as
 `learn` `something` `new` `today` `which` `is` `always` `fun`
 
 
-```bash Analyze Api
-curl -XGET 'localhost:9200/_analyze?tokenizer=standard&filters=lowercase' -d 'Learn Something New Today! which is always fun'
-```
-<a class="link2" id="show-hide-link-2">show/hide the output</a>
-<div class="foldable" id="show-hide-block-2">
-```
+{% highlight sh %}
+## Analyze Api
+curl -XGET 'localhost:9200/_analyze?tokenizer=standard&filters=lowercase' \
+    -d 'Learn Something New Today! which is always fun'
+{% endhighlight %}
+
+
+{% highlight javascript %}
 {
     "tokens": [
         {
@@ -199,43 +199,41 @@ curl -XGET 'localhost:9200/_analyze?tokenizer=standard&filters=lowercase' -d 'Le
         }
     ]
 }
-```
-<a class="link2">hide</a>
-</div>
+{% endhighlight %}
 
 Thus analyzer is composed of char-filters, tokenizers and tokenfilters. Analyzers defines what kind of search you can preform on your data.
 
 You can have multiple indexes on a field and create your own custom char-filters, tokenizers and tokenfilters. You can have different analyzers for different indexes.
 
-##Let's see it in action
+## Let's see it in action
 
 Example below creates an index with **char-filter** as `html_strip`, **tokenizer** as `standard` and tokenfilter i.e, **filter** as `lowercase` and `standard`
 
-```
-curl -XPUT http://localhost:9200/test -d '{                                                                                                                   
-  "settings":{
-    "analysis":{
-      "analyzer":{
-        "default":{
-          "type":"custom",
-          "tokenizer":"standard",
-          "filter":[ "standard", "lowercase" ], 
-          "char_filter" : ["html_strip"]
+{% highlight sh %}
+curl -XPUT http://localhost:9200/test -d \
+    {'
+        "settings":{
+            "analysis":{
+                "analyzer":{
+                    "default":{
+                         "type":"custom",
+                         "tokenizer":"standard",
+                         "filter":["standard", "lowercase"],
+                         "char_filter" : ["html_strip"]
+                     }
+                }
+            }
         }
-      }
-    }
-  }
-}'
-```
+  }'
+{% endhighlight %}
 
 You can analyze the text using:
-```
-curl 'http://localhost:9200/test/_analyze' -d '<p> Learn Something New Today! which is <b>always</b> fun </p>'
-```
+{% highlight sh %}
+curl 'http://localhost:9200/test/_analyze' -d \
+    '<p> Learn Something New Today! which is <b>always</b> fun </p>'
+{% endhighlight %}
 
-<a class="link3" id="show-hide-link-3">show/hide the output</a>
-<div class="foldable" id="show-hide-block-3">
-```
+{% highlight javascript %}
 {
     "tokens": [
         {
@@ -296,31 +294,11 @@ curl 'http://localhost:9200/test/_analyze' -d '<p> Learn Something New Today! wh
         }
     ]
 }
-```
-<a class="link3">hide</a>
-</div>
+{% endhighlight %}
 
-Above results shows that the while creating index it first stripped off the html tags and broke the text into words. And then converted them to lowercase. 
+Above results shows that the while creating index it first stripped off the html tags and broke the text into words. And then converted them to lowercase.
 
 Following the same procedure you can analyze different kind of
 analyzers. Explore different kind of tokenizers, tokenfilters at http://www.elasticsearch.org/guide/reference/index-modules/analysis/
 
 In future posts I will discuss more about how to make custom analyzers and features of elasticsearch like filters and facets.
-
-<script>
-$(document).ready(function(){
-  $(".foldable").hide();
-  $(".link1").click(function(){
-     $("#show-hide-block-1").toggle(700);
-  });
-
-  $(".link2").click(function(){
-     $("#show-hide-block-2").toggle(700);
-  });
-
-  $(".link3").click(function(){
-     $("#show-hide-block-3").toggle(700);
-  });
-
-}); 
-</script>

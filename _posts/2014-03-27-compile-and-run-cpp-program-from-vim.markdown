@@ -16,7 +16,7 @@ nnoremap <C-x> :!./%:r.out
 
 Note: You can **remove/add** the `<Enter>` if you prefer to press `<Enter>` yourself.
 
-Now simply hit`Ctrl + c` to compile and `Ctrl + x` to execute.
+Now simply hit `Ctrl + c` to compile and `Ctrl + x` to execute.
 
 
 For a source file with name `main.cpp`, commands will be expanded to
