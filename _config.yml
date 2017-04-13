@@ -22,6 +22,6 @@ sass:
 # Markdown
 markdown: kramdown
 kramdown:
-  input: GFM
+  # input: GFM
   hard_wrap: false
-highlighter: rouge
+highlighter: pygments
