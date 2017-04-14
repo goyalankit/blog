@@ -1,8 +1,12 @@
 - title: about
   url: /me
 
+- title: projects
+  url: /projects
+
 - title: github
   url: https://github.com/goyalankit
 
 - title: twitter
   url: https://twitter.com/_goyalankit
+
