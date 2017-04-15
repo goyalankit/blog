@@ -4,4 +4,3 @@ gem 'jekyll-sitemap'
 gem 'pygments.rb'
 
 gem 'github-pages'
-

@@ -4,7 +4,11 @@ layout: default
 
 <div class="post">
 	<div class="post__back">
+    {% if page.categories contains 'notes' %}
+    	<a href="/notes">&lt;-- notes</a>
+    {% else %}
     	<a href="/">&lt;-- home</a>
+    {% endif %}
     </div>
     <div class="post__title">
     	<h1>{{ page.title }}</h1>
