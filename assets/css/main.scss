@@ -153,7 +153,7 @@ blockquote {
 		}
 		p {
 			font-size: 1em;
-			line-height: 150%;
+			line-height: 140%;
 			margin-bottom: 15px;
 		}
 		a {
@@ -164,6 +164,12 @@ blockquote {
 				text-decoration: none;
 			}
 		}
+
+    li {
+      padding-bottom: 10px;
+			line-height: 130%;
+    }
+
 		strong {
 			font-weight: 700;
 		}
@@ -177,7 +183,7 @@ blockquote {
 			margin-top: 0px;
 			margin-bottom: 15px;
 			li {
-				padding: 5px;
+				padding: 10px;
 				padding-left: 5px;
 				@media screen and (max-width: $br) {
 					padding: 10px 0 10px 0;
