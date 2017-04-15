@@ -60,7 +60,7 @@ require constructor of the types to exist or match. Line 14 won't
 compile because there is no matching constructor.
 
 Note that the compilation error occurs because `NonDefault` type doesn't
-have a "default" constructor. If you uncomment the line number 6, the compilation error on line 14 will go away since now compiler will find a matching constructor.
+have a "default" constructor. Line 7, defines a constructor; hence there won't be a default constructor that will be created anymore. If you uncomment the line number 6, the compilation error on line 14 will go away since now compiler will find a matching constructor.
 
 
 Example, taken from [cpp reference](http://naipc.uchicago.edu/2014/ref/cppreference/en/cpp/utility/declval.html)
@@ -193,4 +193,4 @@ non-variadic method.
 
 ---
 
-That's all we need and in the next post we'll write our `has_less` method.
+That's all we need and in the [next post](http://goyalankit.com/blog/learning-concept-checking-the-hard-way-3) we'll write our `has_less` method.
