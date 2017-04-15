@@ -8,3 +8,5 @@ I like to play soccer, listen to music, play Age of Empires; you know normal stu
 
 I like to learn languages. Puedo hablar Español, हिन्दी and ਪੰਜਾਬੀ . I’d like to learn French better and Mandarin Chinese.
 
+{:.el_gato}
+![El Gato]({{site.url}}/assets/img/el_gato.gif)
