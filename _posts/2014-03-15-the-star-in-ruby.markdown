@@ -1,6 +1,6 @@
 ---
 layout: post
-title: star in ruby
+title: Star in Ruby
 date: 2014-03-15 00:11
 comments: true
 categories: Ruby, Programming, Code

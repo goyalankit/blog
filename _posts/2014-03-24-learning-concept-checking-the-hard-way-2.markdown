@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "learning concept checking the hard way - P2"
+title: "Learning concept checking the hard way - P2"
 date: 2014-03-24 18:38
 comments: true
 categories: code programming cpp templates concept-checking

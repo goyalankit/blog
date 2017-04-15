@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "compile and run cpp program from vim"
+title: "Compile and run cpp program from Vim"
 date: 2014-03-27 22:07
 comments: true
 categories: vim tip snippet

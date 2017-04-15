@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "elasticsearch basics - Analyzers"
+title: "Elasticsearch basics - Analyzers"
 date: 2013-07-24 14:18
 comments: true
 published: true

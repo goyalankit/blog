@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "writing an LLVM MachineFunctionPass"
+title: "Rriting an LLVM MachineFunctionPass"
 date: 2014-04-01 00:18
 comments: true
 published: false

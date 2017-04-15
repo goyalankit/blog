@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "import bash history to zsh history"
+title: "Import bash history to zsh history"
 date: 2014-05-24 19:35
 comments: true
 categories: bash zsh oh-my-zsh snippet
