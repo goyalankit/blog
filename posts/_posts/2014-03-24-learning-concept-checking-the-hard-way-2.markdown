@@ -6,7 +6,7 @@ comments: true
 categories: code programming cpp templates concept-checking
 ---
 
-In the [previous post](http://goyalankit.com/blog/2014/03/21/learning-concept-checking-the-hard-way-1/), I talked about importance/use case of concept
+In the [previous post](http://goyalankit.com/blog/learning-concept-checking-the-hard-way-1/), I talked about importance/use case of concept
 checking. In this post we'll step by step see how concept checking
 works.
 

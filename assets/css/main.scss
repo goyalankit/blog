@@ -323,3 +323,19 @@ blockquote {
   width: 600px;
 }
 
+
+a[href^="//"]:after, 
+a[href^="http://"]:after, 
+a[href^="https://"]:after {
+  content: url(http://upload.wikimedia.org/wikipedia/commons/6/64/Icon_External_Link.png);
+  margin: 0 0 0 1px;
+}
+
+a[href^="//goyalankit.com/"]:after, 
+a[href^="http://goyalankit.com/"]:after, 
+a[href^="https://goyalankit.com/"]:after,
+a[href^="//localhost:4000/"]:after {
+  content: '';
+  margin: 0;
+}
+
