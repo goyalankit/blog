@@ -6,7 +6,7 @@ comments: true
 categories: code programming cpp templates concept-checking
 ---
 
-In the previous posts [this](http://goyalankit.com/blog/2014/03/21/learning-concept-checking-the-hard-way-1/) and [this](http://goyalankit.com/blog/2014/03/24/learning-concept-checking-the-hard-way-2/), I talked about the basics of
+In the previous posts [this](http://goyalankit.com/blog/learning-concept-checking-the-hard-way-1/) and [this](http://goyalankit.com/blog/learning-concept-checking-the-hard-way-2/), I talked about the basics of
 concept checking and stuff you need to know.
 
 ## Finally here's our `has_less` method.
