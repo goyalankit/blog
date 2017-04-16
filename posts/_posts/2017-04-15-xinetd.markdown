@@ -14,13 +14,12 @@ refer it back.
 
 It's basically a daemon that listens for network requests and services them by spawning more processes.
 
-The master configuration for **xinetd** lives in `/etc/xinetd.conf`. And there is a config file for each
-individual service managed by xinetd.
+The master configuration for **xinetd** lives in `/etc/xinetd.conf`. Each service managed
+by xinetd has a configuration file in `/etc/xinetd.d/`.
 
-Each network service is listed in `/etc/services` that xinetd could potentially manage. Each service managed
-by xinetd has a configuration file in `/etc/xinetd.d/`. 
+Each network service is listed in `/etc/services` that xinetd could potentially manage.
 
-Let's look at an example to see how it works:
+Let's look at an example from one of the services in `/etc/xinetd.d/` to see how it works:
 
 # An echo service
 
@@ -49,16 +48,17 @@ service echo
 
 {% endhighlight %}
 
-**echo** service simply provides an echo service (duh). But what port does it listen to.
-The port can be checked in `/etc/services` file, search of echo and on my machine it
-had an entry that looked like this:
+**echo** service simply provides an echo service (duh). But what port does it listen to?
+The port can be checked in `/etc/services` file, search for echo in file, and on my machine
+it had an entry that looked like this:
 
 {% highlight sh %}
 $ sudo cat /etc/services | grep echo
 echo            7/tcp
 {% endhighlight %}
 
-The connection will fail, if you try to connect to this port.
+The connection will fail, if you try to connect to this port, since the **disabled**
+is set to **yes** in the above configuration file.
 
 {% highlight sh %}
 $ telnet 172.22.210.126 7
@@ -83,8 +83,8 @@ $ telnet 172.22.210.126 7
 Trying 172.22.210.126...
 Connected to angoyal-ld2.linkedin.biz.
 Escape character is '^]'.
-hola
-hola
+hola  <---- I said hola to Server.
+hola  ----> Server said hola back.
 ^]
 telnet> q
 Connection closed.
