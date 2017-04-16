@@ -1,0 +1,98 @@
+---
+layout: post
+title: "XINETD - Extended Internet Daemon"
+date: 2017-04-15 20:25
+comments: true
+categories: hello
+---
+
+I was recently looking into ways to provide ssh access inside linux network namespaces and
+came across **xinetd**. So I decided to dig more into it. Noting it down here so that I can
+refer it back.
+
+# XINETD
+
+It's basically a daemon that listens for network requests and services them by spawning more processes.
+
+The master configuration for **xinetd** lives in `/etc/xinetd.conf`. And there is a config file for each
+individual service managed by xinetd.
+
+Each network service is listed in `/etc/services` that xinetd could potentially manage. Each service managed
+by xinetd has a configuration file in `/etc/xinetd.d/`. 
+
+Let's look at an example to see how it works:
+
+# An echo service
+
+This was a default service that was present on my RHEL6 box. There were lots of
+settings in this file which were basically commented. Most of them were self
+explanatory, so I have omitted them for brevity.
+
+{% highlight sh %}
+
+$ sudo cat /etc/xinetd.d/echo-stream
+# This is the configuration for the tcp/stream echo service.
+
+service echo
+{
+# This is for quick on or off of the service
+	disable		= yes
+
+# The next attributes are mandatory for all services
+	id		= echo-stream
+	type		= INTERNAL
+	wait		= no
+	socket_type	= stream
+#	protocol	=  socket type is usually enough
+
+}
+
+{% endhighlight %}
+
+**echo** service simply provides an echo service (duh). But what port does it listen to.
+The port can be checked in `/etc/services` file, search of echo and on my machine it
+had an entry that looked like this:
+
+{% highlight sh %}
+$ sudo cat /etc/services | grep echo
+echo            7/tcp
+{% endhighlight %}
+
+The connection will fail, if you try to connect to this port.
+
+{% highlight sh %}
+$ telnet 172.22.210.126 7
+Trying 172.22.210.126...
+telnet: connect to address 172.22.210.126: Connection refused
+telnet: Unable to connect to remote host
+{% endhighlight %}
+
+Let's enable the service by setting `disable = no` in `/etc/xinetd.d/echo-stream`.
+In addition, you'd need to restart the xinetd service.
+
+{% highlight sh %}
+$ sudo service xinetd restart
+Stopping xinetd:                                           [  OK  ]
+Starting xinetd:                                           [  OK  ]
+{% endhighlight %}
+
+Now again, let's try to connect to service.
+
+{% highlight sh %}
+$ telnet 172.22.210.126 7
+Trying 172.22.210.126...
+Connected to angoyal-ld2.linkedin.biz.
+Escape character is '^]'.
+hola
+hola
+^]
+telnet> q
+Connection closed.
+{% endhighlight %}
+
+Sweet.
+
+You can use xinetd to run your own network service and have full control. I have some ideas which
+I'll document if they work.
+
+So long.
