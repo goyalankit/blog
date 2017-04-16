@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "XINETD - Extended Internet Daemon"
-date: 2017-04-15 20:25
+date: 2017-04-16 20:25
 comments: true
 categories: hello
 ---
