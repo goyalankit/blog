@@ -3,7 +3,7 @@ layout: post
 title: "XINETD - Extended Internet Daemon"
 date: 2017-04-16 20:25
 comments: true
-categories: hello
+categories: xinetd networks
 ---
 
 I was recently looking into ways to provide ssh access inside linux network namespaces and
