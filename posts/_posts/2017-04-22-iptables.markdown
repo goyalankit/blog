@@ -1,0 +1,21 @@
+---
+layout: post
+title: "IPTables - You Shall Not Pass"
+date: 2017-04-22 23:11
+comments: true
+published: false
+categories: iptables networks
+---
+
+I have been lately working with networks and have used **iptables** at several instances. During the process I dug into iptables a little bit and documenting my learnings here.
+
+# Netfilter and IPTables
+
+**Netfilter** provides a set of hooks inside Linux kernel networking stack which allows one to take action at different phases in routing process. 
+
+`iptables` is a userland tool to interact with `netfilter` in kernel. `iptables` and `netfilter` together facilitate in enforcing different packet-filtering rules and setting up a basic firewall.
+
+
+## References:
+[1] [Taming the Wild Netfilter - linuxjournal.com](http://www.linuxjournal.com/article/4815)<br/>
+[2] [Netfilter Architecture - netfilter.org](https://www.netfilter.org/documentation/HOWTO/netfilter-hacking-HOWTO-3.html)<br/>
