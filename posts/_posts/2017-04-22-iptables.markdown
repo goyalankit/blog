@@ -27,7 +27,7 @@ A packet goes through several different routines and there are hooks available t
 
 There are primarily 3 different tables which allow you to define rules and where that rules gets applied depends on the chain.
 
-Consider the following diagram showing packet travel flow:
+Consider the following diagram showing packet traversal flow:
 
 ![Packet Traversal Diagram](https://cloud.githubusercontent.com/assets/1711674/8742358/87ee94aa-2c32-11e5-84b7-4819a676129a.gif)
 
