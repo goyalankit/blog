@@ -69,7 +69,7 @@ The 3 tables (`-t` flag) and their functions:
 3. **mangle**: Mangle can be used to modify certain properties of the packet like TOS, TTL, MTU, etc.
 
 # Targets and Jumps (`-j` flag)
-Each rules has a predicate and a possible action which is called a target. For a detailed list of possible target and jump values, refer: [iptables - targets and Jumps](http://www.iptables.info/en/iptables-targets-and-jumps.html). Some of the most common ones are:
+Each rule has a predicate and a possible action which is called a target. For a detailed list of possible target and jump values, refer: [iptables - targets and Jumps](http://www.iptables.info/en/iptables-targets-and-jumps.html). Some of the most common ones are:
 
 1. **ACCEPT**: This can be used to allow traffic based on the other specifications in the rule.
 2. **DROP**: This can be used to drop the messages. No further processing is done; and no further information will be sent back to sender.
