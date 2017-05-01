@@ -7,7 +7,7 @@ published: true
 categories: iptables networks
 ---
 
-I have been lately working with networks and had to use **iptables** at several instances. During the process I dug into iptables a little bit and documenting my learnings here.
+I have been lately working with networks and had to use **iptables** at several instances. During the process I dug into iptables a little bit and so documenting my learnings here.
 
 # Netfilter and IPTables
 
@@ -39,10 +39,10 @@ According to above diagram, a packet goes through following chains:
 5. **POSTROUTING**: All outbound packet goes through post routing state.
 
 <br/>
-Let's go though the flow for a packet, when a packet arrives,
+Let's go though the packet flow. When a new packet arrives:
 - It first goes through the **PREROUTING** chain; where you can change the TCP headers, setup nat rules, etc; before passing it on for the Routing. Routing decides if the packet is targeted for current system based on IP headers. 
-- If it is not meant for the current system, packet passes through the **FORWARD** chain where one can decide to either forward the packet or drop it based on the set policy. If the forwarding is allowed, the packet is passed on to the **POSTROUTING** chain.
-- If the packet is meant for the current system, it is passed to the **INPUT** chain where packets can be filtered, header can be modified, etc and then they are passed on to the local machine for processing.
+- If it is not meant for the current system, packet passes through the **FORWARD** chain where one can decide to either forward the packet or drop it based on the set policy. If the forwarding is allowed, the packet is passed on to the **POSTROUTING** chain, otherwise it's dropped or rejected.
+- If the packet is meant for the current system, it is passed to the **INPUT** chain where packets can be filtered, header can be modified, etc and once rules in this chain are applied, packet is passed on to the local machine for processing.
 - Any new packet from local machine passes through **OUTPUT** chain, where packet can be modified before the routing decision is made. Once the routing decision is made, packet goes through the **POSTROUTING** chain.
 - **POSTROUTING** change can modify the headers, filter the packets before packet is finally put onto the network.
 
@@ -52,7 +52,7 @@ Let's go though the flow for a packet, when a packet arrives,
 }
 </style>
 
-I loosely talked about filters, modifying headers during the traversal flow of packet above. To make it more concrete, let's look at what tables are available. As mentioned above, there are primarily 3 tables available where you can define you rules and these rules are executed at different chains. *These three tables are: **nat**, **mangle** and **filter**.*{:.imptnt} 
+I loosely talked about filters, modifying headers during the traversal flow of packet. To make it more concrete, let's look at what tables are available and how can they be used. As mentioned above, there are primarily 3 tables available where you can define you rules and these rules are executed at different chains. *These three tables are: **nat**, **mangle** and **filter**.*{:.imptnt} 
 
 Not all tables are available in all chains, as you can see **filter** table is not available in **PREROUTING** and **POSTROUTING** chains.
 
