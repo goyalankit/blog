@@ -3,18 +3,112 @@ layout: post
 title: "IPTables - You Shall Not Pass"
 date: 2017-04-22 23:11
 comments: true
-published: false
+published: true
 categories: iptables networks
 ---
 
-I have been lately working with networks and have used **iptables** at several instances. During the process I dug into iptables a little bit and documenting my learnings here.
+I have been lately working with networks and had to use **iptables** at several instances. During the process I dug into iptables a little bit and documenting my learnings here.
 
 # Netfilter and IPTables
 
 **Netfilter** provides a set of hooks inside Linux kernel networking stack which allows one to take action at different phases in routing process. 
 
-`iptables` is a userland tool to interact with `netfilter` in kernel. `iptables` and `netfilter` together facilitate in enforcing different packet-filtering rules and setting up a basic firewall.
+`iptables` is a userland tool to interact with netfilter in kernel. *IPTables* and *netfilter* together facilitate in enforcing different packet-filtering rules and setting up a basic firewall.
 
+To check if you have iptables enabled:
+{% highlight bash %}
+$ lsmod | grep ip_tables
+ip_tables              27115  3 iptable_filter,iptable_mangle,iptable_nat
+{% endhighlight %}
+
+## Packet Traversal, Tables and Chains
+
+A packet goes through several different routines and there are hooks available that allow you to modify the behavior. 
+
+There are primarily 3 different tables which allow you to define rules and where that rules gets applied depends on the chain.
+
+Consider the following diagram showing packet travel flow:
+
+![Packet Traversal Diagram](https://cloud.githubusercontent.com/assets/1711674/8742358/87ee94aa-2c32-11e5-84b7-4819a676129a.gif)
+
+According to above diagram, a packet goes through following chains:
+1. **PREROUTING**: A packet goes through this chain before any routing decision is made. 
+2. **FORWARD**: If the message is not intended for local machine; it can be either dropped or routed to other machine based on the policy.
+3. **INPUT**: If the packet is targeted for local machine, it passes through the INPUT chain.
+4. **OUTPUT**: Any packet originating from local machine goes through the OUTPUT chain.
+5. **POSTROUTING**: All outbound packet goes through post routing state.
+
+<br/>
+Let's go though the flow for a packet, when a packet arrives,
+- It first goes through the **PREROUTING** chain; where you can change the TCP headers, setup nat rules, etc; before passing it on for the Routing. Routing decides if the packet is targeted for current system based on IP headers. 
+- If it is not meant for the current system, packet passes through the **FORWARD** chain where one can decide to either forward the packet or drop it based on the set policy. If the forwarding is allowed, the packet is passed on to the **POSTROUTING** chain.
+- If the packet is meant for the current system, it is passed to the **INPUT** chain where packets can be filtered, header can be modified, etc and then they are passed on to the local machine for processing.
+- Any new packet from local machine passes through **OUTPUT** chain, where packet can be modified before the routing decision is made. Once the routing decision is made, packet goes through the **POSTROUTING** chain.
+- **POSTROUTING** change can modify the headers, filter the packets before packet is finally put onto the network.
+
+<style>
+.imptnt strong {
+  color: rgba(189, 117, 1, 0.89);
+}
+</style>
+
+I loosely talked about filters, modifying headers during the traversal flow of packet above. To make it more concrete, let's look at what tables are available. As mentioned above, there are primarily 3 tables available where you can define you rules and these rules are executed at different chains. *These three tables are: **nat**, **mangle** and **filter**.*{:.imptnt} 
+
+Not all tables are available in all chains, as you can see **filter** table is not available in **PREROUTING** and **POSTROUTING** chains.
+
+So a rules needs to have a chain and a table. For example, an iptable rule looks something like this:
+{% highlight sh %}
+sudo iptables -t nat -A PREROUTING -p tcp --dport 22 -j DNAT \
+    --to-destination 172.22.212.30:222
+{% endhighlight %}
+where table is **nat** and chain is **PREROUTING**.
+
+The 3 tables (`-t` flag) and their functions:
+1. **filter**: This table, as the name suggests, filters the packets based on the rules. This is the default table and will be used if a table is not specified. It is only present in INPUT, OUTPUT and FORWARD chain. Based on target value, packets can be dropped, accepted, and returned.
+2. **nat**: This allows altering the packets destination or source address. This is normally used to modify source and destination headers to allow internal ips to talk to outside networks. Normal use-case involves changing the destination IP address of the packet, also known as DNAT, in the PREROUTING chain to that of local machine so that routing can route it to INPUT chain. And conversely, changing the source address of the packet, also known as SNAT, in the POSTROUTING chain to that of the router or an ip known to destination routing.
+3. **mangle**: Mangle can be used to modify certain properties of the packet like TOS, TTL, MTU, etc.
+
+# Targets and Jumps (`-j` flag)
+Each rules has a predicate and a possible action which is called a target. For a detailed list of possible target and jump values, refer: [iptables - targets and Jumps](http://www.iptables.info/en/iptables-targets-and-jumps.html). Some of the most common ones are:
+
+1. **ACCEPT**: This can be used to allow traffic based on the other specifications in the rule.
+2. **DROP**: This can be used to drop the messages. No further processing is done; and no further information will be sent back to sender.
+3. **REJECT**: This is similar to DROP but it also sends back an error message back to host sending the packet.
+4. **SNAT**: It allows one to modify source ip address in the packet. It's only valid in POSTROUTING chain and nat table.
+5. **DNAT**: It allows one to modify destination ip address in the packet. It's only valid in PREROUTING chaing and nat table.
+6. **MASQUERADE**: This is same as SNAT but it doesn't require a `--to-source` option. I.e., this is preferable if you don't know the external ip during the rule creation, as it may be retrieved later using DHCP.
+
+## Some CLI examples
+This post was an attempt to understand basics of `iptables`, rather than a specific example. There are some good examples online like this [nat tutorial](https://www.karlrupp.net/en/computer/nat_tutorial)
+
+**To drop traffic from a certain IP address**
+
+We can use filter table (which is the default) and add the rule in the INPUT chain.
+{% highlight sh %}
+# To create the rule
+$ sudo iptables -A INPUT -s 192.12.33.12 -j REJECT
+
+# To list the rule
+$ sudo iptables -L OUTPUT -n
+Chain OUTPUT (policy ACCEPT)
+num  target     prot opt source               destination
+1    REJECT     all  --  0.0.0.0/0            192.12.33.12       \
+                                     reject-with icmp-port-unreachable
+
+# To delete the rule
+$ sudo iptables -D OUTPUT -1
+{% endhighlight %}
+
+**To drop all traffic to a certain IP address**
+
+We can use filter table (which is the default) and add the following rule in the OUTPUT chain.
+{% highlight sh %}
+sudo iptables -t filter -d 192.12.33.12 -A OUTPUT -j REJECT
+{% endhighlight %}
+
+For more complex examples, please refer to this: [nat tutorial](https://www.karlrupp.net/en/computer/nat_tutorial)
+
+This is it for now.
 
 ## References:
 [1] [Taming the Wild Netfilter - linuxjournal.com](http://www.linuxjournal.com/article/4815)<br/>
