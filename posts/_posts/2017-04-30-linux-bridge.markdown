@@ -1,15 +1,18 @@
 ---
 layout: post
 title: "Linux Bridge"
-date: 2017-04-30 11:07
+date: 2017-05-01 00:07
 comments: true
 published: false
 categories: bridge networks
 ---
 
-Bridge is a virtual device that on its own cannot receive or transmit anything unless you bind one or more real devices to it.
+Bridge is a virtual device that on its own cannot receive or transmit anything unless you bind one or more real devices to it (*from [Understanding Linux Networking Internals](http://shop.oreilly.com/product/9780596002558.do).*)
+
 
 
 ## References:
-[1] [Taming the Wild Netfilter - linuxjournal.com](http://www.linuxjournal.com/article/4815)<br/>
-[2] [Netfilter Architecture - netfilter.org](https://www.netfilter.org/documentation/HOWTO/netfilter-hacking-HOWTO-3.html)<br/>
+[Handwritten notes](http://goyalankit.com/blog/linux-bridge-notes)
+
+[1] [Anatomy of a Linux bridge](https://wiki.aalto.fi/download/attachments/70789083/linux_bridging_final.pdf)<br/>
+[2] [Understanding Linux Networking Internals - Christian Benvenuti](http://shop.oreilly.com/product/9780596002558.do)<br/>
