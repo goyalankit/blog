@@ -25,7 +25,7 @@ ip_tables              27115  3 iptable_filter,iptable_mangle,iptable_nat
 
 A packet goes through several different routines and there are hooks available that allow you to modify the behavior. 
 
-There are primarily 3 different tables which allow you to define rules and where that rules gets applied depends on the chain.
+There are primarily 3 different tables which allow you to define rules and where those rules get applied depends on the chain.
 
 Consider the following diagram showing packet traversal flow:
 
