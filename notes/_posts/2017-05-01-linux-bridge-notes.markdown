@@ -7,7 +7,7 @@ published: true
 categories: bridge networks
 ---
 
-[Link to blog post for Linux Bridges](http://goyalankit.com/blog/linux-bridge) (Defunkt link: in progress.)
+[Link to blog post for Linux Bridges](http://goyalankit.com/blog/linux-bridge)
 
 
 <style>
