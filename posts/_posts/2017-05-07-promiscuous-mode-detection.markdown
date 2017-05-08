@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Is the network device in promiscuous mode?"
-date: 2017-05-07 21:25
+date: 2017-05-08 22:40
 comments: true
 published: true
 categories: networks devices
@@ -9,13 +9,33 @@ categories: networks devices
 
 Wikipedia defines [**promiscuous mode**](https://en.wikipedia.org/wiki/Promiscuous_mode) as a mode for a wired network interface controller (NIC) or wireless network interface controller (WNIC) that causes the controller to pass all traffic it receives to the central processing unit (CPU)rather than passing only the frames that the controller is intended to receive. 
 
-## Problem
+# How do I tell if a device is in promiscuous mode? 
 
-Figuring out if a given network device is in promiscuous mode can be trickier than you'd think. 
+**tl;dr**: Kernel tracks promiscuous mode using flags on the device. For promiscuous mode, [IFF_PROMISC, 0x100](http://elixir.free-electrons.com/linux/v3.10.105/source/include/uapi/linux/if.h#L39) should be set.
+
+For a given interface, check the flags to see if the promiscuous bit is set.
+{% highlight sh %}
+$ cat /sys/devices/virtual/net/veth0/flags
+0x1303  # 0001 001[1] 0000 0011   # device is in promiscuous mode.
+
+$ cat /sys/devices/virtual/net/br0/flags
+0x1003  # 0001 000[0] 0000 0011  # device is not in promiscuous mode.
+{% endhighlight %}
+
+Here's a quick python script to test promiscuous mode for all interfaces:
+
+<script src="https://gist.github.com/goyalankit/7ae7e967e68b1c2465646962e842ed2a.js"></script>
+
+
+---
+
+# Problem with existing tools
+
+Figuring out if a given network device is in promiscuous mode using tools like `iproute2` or `netstat` can be trickier than you'd think. 
 
 At first glance, you'd think `iproute2` or `netstat -i` command should tell you if the device is in promiscuous mode but that's not always the case. 
 
-We'll consider two examples here, first to show the case where it works as expected and second to show where it doesn't. Then we'll look into the reason behind this inconsistent behavior.
+We'll consider two examples here, first to show the case where it works as expected and second to show where it doesn't. 
 
 **A word on `netstat`:**
 
@@ -109,13 +129,7 @@ precise64 kernel: [43656.288050] device veth0 entered promiscuous mode
 
 As expected, **the device was in fact moved to promiscuous mode but `iproute2` doesn't show it in promiscuous mode.**
 
-# Explanation
-As you can see in netstat code [here](https://github.com/ecki/net-tools/blob/2617bbe4499749b93317cb41b2104278295eba81/lib/interface.c#L627-L628), it's checking to see if the `IFF_PROMISC` flag is set in interface flags. And to get the interface flags, netstat uses **`ioctl`** command **`SIOCGIFFLAGS`** in [`if_fetch`](https://github.com/ecki/net-tools/blob/2617bbe4499749b93317cb41b2104278295eba81/lib/interface.c#L419-L420).
-
-
 
 # References
 
-1. http://stackoverflow.com/questions/41678219/how-to-properly-put-network-interface-into-promiscuous-mode-on-linux?noredirect=1&lq=1
-2. https://lists.gt.net/linux/kernel/178148
-3. http://man7.org/linux/man-pages/man7/packet.7.html
+1. [https://lists.gt.net/linux/kernel/178148](https://lists.gt.net/linux/kernel/178148)
