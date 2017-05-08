@@ -207,7 +207,7 @@ As you can see in above snippet of `br_handle_frame_finish`,
 
 Bridges can be used to create various different network topologies and it's important to understand how they work. I have seen bridges being used with containers where they are used to provide networking in network namespaces along with `veth` devices. In fact the default networking in docker is provided using [bridge](https://docs.docker.com/engine/userguide/networking/#default-networks).
 
-This is all for now, hopefully this was useful. This was mainly based on the excellent paper [Anatomy of a Linux bridge](https://wiki.aalto.fi/download/attachments/70789083/linux_bridging_final.pdf) and my own reading of linux kernel code.
+This is all for now, hopefully this was useful. This was mainly based on the excellent paper [Anatomy of a Linux bridge](https://wiki.aalto.fi/download/attachments/70789083/linux_bridging_final.pdf) and my own reading of linux kernel code. I'd appreciate any feedback, or comments.
 
 ---
 
