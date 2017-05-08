@@ -35,7 +35,7 @@ categories: bridge networks
 ![Linux Bridge 1](https://gist.githubusercontent.com/goyalankit/638e39904d46ebe2ef81174a808e9ada/raw/8ac18d44ebaf4b1c6e38d1838c1d3778c42a140a/IMG_0057.JPG)
 
 {:.os_concepts_right}
-![Linux Bridge 1](https://gist.githubusercontent.com/goyalankit/638e39904d46ebe2ef81174a808e9ada/raw/8ac18d44ebaf4b1c6e38d1838c1d3778c42a140a/IMG_4590.JPG)
+![Linux Bridge 1](https://gist.githubusercontent.com/goyalankit/638e39904d46ebe2ef81174a808e9ada/raw/7a63612e4720fda2ef9cbf60c184a5bb16f6333c/IMG_9286.JPG)
 
 {:.move_to_left}
 <div> </div>
