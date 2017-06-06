@@ -25,7 +25,7 @@ There are two main configuration subsystems to do bridges:
 
 ## Creating a bridge
 
-Bridge can be created using `ioctl` command `SIOCBRADDBR`; as can be seen by `brctl` utiligy provided by bridge-utils.
+Bridge can be created using `ioctl` command `SIOCBRADDBR`; as can be seen by `brctl` utility provided by bridge-utils.
 
 {% highlight sh %}
 vagrant@precise64:~$ sudo strace brctl addbr br1
