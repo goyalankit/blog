@@ -35,7 +35,7 @@ ioctl(3, SIOCBRADDBR, 0x7fff2eae9966)   = 0
 ...
 {% endhighlight %}
 
-Note that there is no device at this point to handle ioctl device, so the ioctl command is handled by a stub method: [`br_ioctl_deviceless_stub`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_ioctl.c#L351), which in turn calls [`br_add_bridge`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_if.c#L235). This method calls `alloc_netdev`, which is a macro that eventually calls [`alloc_netdev_mqs`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/core/dev.c#L5660).
+Note that there is no device at this point to handle the ioctl command, so the ioctl command is handled by a stub method: [`br_ioctl_deviceless_stub`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_ioctl.c#L351), which in turn calls [`br_add_bridge`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_if.c#L235). This method calls `alloc_netdev`, which is a macro that eventually calls [`alloc_netdev_mqs`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/core/dev.c#L5660).
 
 {% highlight c %}
 br_ioctl_deviceless_stub
