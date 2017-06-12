@@ -3,7 +3,7 @@ layout: post
 title: "VXLAN - rfc7348"
 date: 2017-05-14 10:04
 comments: true
-published: true
+published: false
 categories: networks vxlan
 ---
 
@@ -55,6 +55,5 @@ The requirement from underlay network (UDP) is that it should have ip connectivi
 The endpoint of the tunnel, **VTEP (Virtual Tunnel End Point)** forms the control plane of VXLAN (overlay network). It maintains a mapping of internal MAC address to the outer IP address i.e., while sending a packet from A 10.0.0.1 to 10.0.0.2, VTEP at 10.0.0.1 
 
 VMs in subnets (A and B in the above picture) are unaware of the VXLAN themselves, and they route the traffic as they normally would. Say, a VM in A (10.0.0.1) wants to route traffic to another VM in A (10.0.0.2) located at a different physical server and network. It would send the MAC frame as it would if both were on the same physical network. VTEP, on the host looks up the VNI to which this VM is associated
-
 
 https://www.cloudshark.org/captures/670aeb7bad79

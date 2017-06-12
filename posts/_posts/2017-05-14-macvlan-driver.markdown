@@ -3,7 +3,7 @@ layout: post
 title: "Anatomy of the MACVLAN driver"
 date: 2017-05-13 11:15
 comments: true
-published: true
+published: false
 categories: networks drivers macvlan
 ---
 
