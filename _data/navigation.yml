@@ -7,8 +7,5 @@
 - title: about
   url: /me
 
-- title: github
-  url: https://github.com/goyalankit
-
 - title: feed
   url: /feed.xml
