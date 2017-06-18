@@ -230,32 +230,9 @@ blockquote {
 	}
 }
 
-.about {
-	&__title {
-		font-size: 1.6em;
-		font-weight: 700;
-		margin-top: 20px;
-		margin-bottom: 10px;
-	}
-	&__content {
-		margin-top: 20px;
-		h1 {
-			font-size: 1.2em;
-			font-style: italic;
-			margin-top: 30px;
-			margin-bottom: 5px;
-		}
-		p {
-			font-size: 1em;
-			line-height: 150%;
-			margin-bottom: 10px;
-		}
-	}
-}
-
 /* Projects page */
 
-.projects {
+.projects, .about {
 	&__title {
 		font-size: 1.6em;
 		font-weight: 700;
@@ -317,6 +294,51 @@ blockquote {
 
   }
 }
+
+.about {
+	&__title {
+		font-size: 1.6em;
+		font-weight: 700;
+		margin-top: 20px;
+		margin-bottom: 10px;
+	}
+	&__content {
+		margin-top: 20px;
+		h1 {
+			font-size: 1.2em;
+			font-style: italic;
+			font-weight: 700;
+			margin-top: 30px;
+			margin-bottom: 5px;
+		}
+		p {
+			font-size: 1em;
+			line-height: 150%;
+			margin-bottom: 10px;
+		}
+		h2 {
+			font-size: 1.1em;
+			font-weight: 700;
+			margin-top: 10px;
+			margin-bottom: 5px;
+		}
+		a {
+      text-decoration: none;
+			padding-bottom: 1px;
+      color: #bf0222;
+			&:hover {
+				background-color: $color-grey;
+				text-decoration: none;
+        cursor: pointer;
+			}
+		}
+		ul {
+			list-style: none;
+		}
+
+	}
+}
+
 
 /* Me page */
 .el_gato img {

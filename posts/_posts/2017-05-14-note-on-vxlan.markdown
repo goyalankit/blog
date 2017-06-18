@@ -10,7 +10,7 @@ categories: networks vxlan
 From the [rfc7348](https://tools.ietf.org/html/rfc7348#page-5) 
 > VXLAN is a Layer 2 overlay scheme on a Layer 3 network.
 
-To understand VXLAN better, let's first understand what's VLAN. 
+To understand VXLAN better, let's first understand what's subnetting and VLAN.
 
 Let's say we have a physical LAN where there are multiple hosts with IPs in `10.1.2.0/24` network. Each host can talk to the other host using a switch alone. Now, we want to group set of hosts and separate them from each other. What are our options?
 
@@ -32,7 +32,7 @@ The behavior is same in presence of router that allows the two subnets to talk t
 ![icmp own subnet broadcast](https://gist.githubusercontent.com/goyalankit/df3686b62ac9bfd20f5eb292c02697bd/raw/cc30fb145049c25966637c02e11d01f8277ff8d3/icmp_own_broadcast.gif)
 
 # VLAN
-So how can we segregate the broadcast domains for the subnets? This is where VLAN comes in. VLAN can be used to separate the broadcast domains as well. 
+So how can we split the broadcast domains for the subnets? This is where VLAN comes in. VLAN can be used to separate the broadcast domains as well. 
 
 VLAN frames are tagged by switch based on what port they arrive at. VLAN header is 4 bytes long and is placed before the type field in ethernet frame. It contains a 12 bit VLAN Identifier (VID) that identifies the frame it belongs to.
 
@@ -52,8 +52,16 @@ VXLAN stands for Virtual eXtensible Local Area Network, it's a layer 2 in layer 
 
 The requirement from underlay network (UDP) is that it should have ip connectivity between two networks, UDP port [4789](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml?search=4789) is reserved for VXLAN.
 
-The endpoint of the tunnel, **VTEP (Virtual Tunnel End Point)** forms the control plane of VXLAN (overlay network). It maintains a mapping of internal MAC address to the outer IP address i.e., while sending a packet from A 10.0.0.1 to 10.0.0.2, VTEP at 10.0.0.1 
+The endpoint of the tunnel, **VTEP (Virtual Tunnel End Point)** forms the control plane of VXLAN (overlay network). It maintains a mapping of internal MAC address to the outer IP address i.e., while sending a packet from A: 10.0.0.1 to B: 10.0.0.2.
 
-VMs in subnets (A and B in the above picture) are unaware of the VXLAN themselves, and they route the traffic as they normally would. Say, a VM in A (10.0.0.1) wants to route traffic to another VM in A (10.0.0.2) located at a different physical server and network. It would send the MAC frame as it would if both were on the same physical network. VTEP, on the host looks up the VNI to which this VM is associated
+VMs in subnets (A and B in the above picture) are unaware of the VXLAN themselves, and they route the traffic as they normally would. Say, a VM in A (10.0.0.1) wants to route traffic to another VM in A (10.0.0.2) located at a different physical server and network. It would send the MAC frame as it would if both were on the same physical network. VTEP on that host checks the MAC address of 10.0.0.2  
+
+Following packet trace shows the VXLAN packet wrapper in UDP outer packet. UDP forms the overlay network and inner nodes (with IP 10.0.0.1) don't need to know about overlay network.
+
+{:.image_size_600}
+![](https://gist.githubusercontent.com/goyalankit/df3686b62ac9bfd20f5eb292c02697bd/raw/d1920b1f0cabfb35a5e350de61f1e4535d39cc7f/vxlan_packet_trace_1.png)
+
+{:.image_size_600}
+![](https://gist.githubusercontent.com/goyalankit/df3686b62ac9bfd20f5eb292c02697bd/raw/d1920b1f0cabfb35a5e350de61f1e4535d39cc7f/vxlan_packet_trace_2.png)
 
 https://www.cloudshark.org/captures/670aeb7bad79
