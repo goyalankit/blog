@@ -5,3 +5,4 @@ gem 'pygments.rb'
 
 gem 'github-pages'
 gem 'jekyll-feed'
+gem 'jekyll-sitemap'

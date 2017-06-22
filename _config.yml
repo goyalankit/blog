@@ -28,3 +28,7 @@ highlighter: rouge
 
 gems:
     - jekyll-feed
+
+gems:
+    - jekyll-sitemap
+
