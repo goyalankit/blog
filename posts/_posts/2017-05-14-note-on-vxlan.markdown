@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "VXLAN - rfc7348"
-date: 2017-05-14 10:04
+date: 2017-06-24 10:04
 comments: true
 published: false
 categories: networks vxlan
@@ -46,8 +46,9 @@ Note that 12 bit identifier limits the maximum number of vlans you can have to 4
 
 # VXLAN
 
-VXLAN stands for Virtual eXtensible Local Area Network, it's a layer 2 in layer 3 overlay tunnel. More specifically an Ethernet in UDP tunnel. The idea of VXLAN is similar to VLAN, as in it provides logical separation of private networks. 
+VXLAN stands for Virtual eXtensible Local Area Network, it's a layer 2 in layer 3 overlay tunnel. More specifically an Ethernet in UDP tunnel. The idea of VXLAN is similar to VLAN, as in it provides logical separation of private networks.
 
+Consider the network topology in the diagram below network A and B are part of the same private network separated by external network. A-P, B-Q use same subnet in the same physical network.
 ![](https://gist.githubusercontent.com/goyalankit/df3686b62ac9bfd20f5eb292c02697bd/raw/72eaedd22c441ad96b5864555901f5f1fd6347bc/vxlan3.png)
 
 The requirement from underlay network (UDP) is that it should have ip connectivity between two networks, UDP port [4789](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml?search=4789) is reserved for VXLAN.

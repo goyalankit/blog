@@ -19,9 +19,12 @@ As [Anatomy of a Linux bridge](https://wiki.aalto.fi/download/attachments/707890
 
 For each unicast mac address, bridge maintains a mac learning database to decide which ports to forward based on MAC addresses, and if it can't find an entry for a given mac address, it will broadcast the frame to all ports except the one where it received the frame from.
 
-There are two main configuration subsystems to do bridges:
+There are three main configuration subsystems to do bridges:
 - **ioctl**: This interface is used to create/destroy bridges and add/remove interfaces to/from a bridge.
 - **sysfs**: Management of bridge and port specific parameters.
+- **netlink**: Asynchronous queue based communication that uses **AF_NETLINK** address family, can also be used to interact with bridge.
+
+In this article, we only talk about **ioctl**.
 
 ## Creating a bridge
 
@@ -217,6 +220,9 @@ Ah, the wonderful world of bridges.
 
 
 ---
+
+**Update July 12, 2017**: Added third way to communicate with bridge. *Thanks to @vbernat* from comments.
+
 
 ## References:
 [Handwritten notes](http://goyalankit.com/blog/linux-bridge-notes)
