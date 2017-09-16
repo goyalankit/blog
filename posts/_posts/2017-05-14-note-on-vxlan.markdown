@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "VXLAN - rfc7348"
+title: "Why VXLAN (rfc7348)?"
 date: 2017-06-24 10:04
 comments: true
-published: false
+published: true
 categories: networks vxlan
 ---
 
@@ -55,7 +55,7 @@ The requirement from underlay network (UDP) is that it should have ip connectivi
 
 The endpoint of the tunnel, **VTEP (Virtual Tunnel End Point)** forms the control plane of VXLAN (overlay network). It maintains a mapping of internal MAC address to the outer IP address i.e., while sending a packet from A: 10.0.0.1 to B: 10.0.0.2.
 
-VMs in subnets (A and B in the above picture) are unaware of the VXLAN themselves, and they route the traffic as they normally would. Say, a VM in A (10.0.0.1) wants to route traffic to another VM in A (10.0.0.2) located at a different physical server and network. It would send the MAC frame as it would if both were on the same physical network. VTEP on that host checks the MAC address of 10.0.0.2  
+VMs in subnets (A and B in the above picture) are unaware of the VXLAN themselves, and they route the traffic as they normally would. Say, a VM in A (10.0.0.1) wants to route traffic to another VM in A (10.0.0.2) located at a different physical server and network. It would send the MAC frame as it would if both were on the same physical network. VTEP on that host checks the MAC address of 10.0.0.2
 
 Following packet trace shows the VXLAN packet wrapper in UDP outer packet. UDP forms the overlay network and inner nodes (with IP 10.0.0.1) don't need to know about overlay network.
 
@@ -65,4 +65,12 @@ Following packet trace shows the VXLAN packet wrapper in UDP outer packet. UDP f
 {:.image_size_600}
 ![](https://gist.githubusercontent.com/goyalankit/df3686b62ac9bfd20f5eb292c02697bd/raw/d1920b1f0cabfb35a5e350de61f1e4535d39cc7f/vxlan_packet_trace_2.png)
 
-https://www.cloudshark.org/captures/670aeb7bad79
+# Conclusion
+VXLAN is an important piece of puzzle when it comes to scaling ipv4 and providing network abstractions. I hope you have a slightly better understanding of where VXLAN belongs in plethora of networking technologies.
+
+
+## References:
+
+[1] [Packet trace for VXLAN - cloudshark](https://www.cloudshark.org/captures/670aeb7bad79)<br/>
+[2] [RFC-7348: Virtual eXtensible Local Area Network (VXLAN)](https://tools.ietf.org/html/rfc7348)
+

@@ -24,7 +24,7 @@ Let's look at an example from one of the services in `/etc/xinetd.d/` to see how
 # An echo service
 
 This was a default service that was present on my RHEL6 box. There were lots of
-settings in this file which were basically commented. Most of them were self
+settings in this file which were basically commented out. Most of them are self
 explanatory, so I have omitted them for brevity.
 
 {% highlight sh %}
@@ -57,7 +57,7 @@ $ sudo cat /etc/services | grep echo
 echo            7/tcp
 {% endhighlight %}
 
-The connection will fail, if you try to connect to this port, since the **disabled**
+If you try to connect to this port; the connection will fail since the **disabled** flag
 is set to **yes** in the above configuration file.
 
 {% highlight sh %}
