@@ -101,7 +101,7 @@ Note: acceptor ignores the message no fail. On Accept, it sends a message to all
 }
 </style>
 {:.paxos_basic}
-![Paxos Basic](http://i.imgur.com/f6kKDsL.jpg?1)
+![Paxos Basic](//i.imgur.com/f6kKDsL.jpg?1)
 
 
 ## Picking a value in phase 2a

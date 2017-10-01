@@ -38,4 +38,4 @@ QEMU can use KVM (Linux kernel module) as vert-type to take advantage of this ha
 
 QEMU used without KVM, can use TCG (Tiny co  de generator); if your cpu doesn’t support hardware virtualization. Then it’s a type 2 hypervisaor.
 
-[Further Reading](http://www.innervoice.in/blogs/2014/03/10/kvm-and-qemu/)
+[Further Reading](//www.innervoice.in/blogs/2014/03/10/kvm-and-qemu/)

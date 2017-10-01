@@ -7,7 +7,7 @@ published: true
 categories: bridge networks
 ---
 
-[Link to blog post for Linux Bridges](http://goyalankit.com/blog/linux-bridge)
+[Link to blog post for Linux Bridges](//goyalankit.com/blog/linux-bridge)
 
 
 <style>
@@ -43,4 +43,4 @@ categories: bridge networks
 
 ## References:
 [1] [Anatomy of a Linux bridge](https://wiki.aalto.fi/download/attachments/70789083/linux_bridging_final.pdf)<br/>
-[2] [Understanding Linux Networking Internals - Christian Benvenuti](http://shop.oreilly.com/product/9780596002558.do)<br/>
+[2] [Understanding Linux Networking Internals - Christian Benvenuti](//shop.oreilly.com/product/9780596002558.do)<br/>
