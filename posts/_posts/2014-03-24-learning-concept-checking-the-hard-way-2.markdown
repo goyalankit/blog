@@ -6,7 +6,7 @@ comments: true
 categories: code programming cpp templates concept-checking
 ---
 
-In the [previous post](http://goyalankit.com/blog/learning-concept-checking-the-hard-way-1), I talked about importance/use case of concept
+In the [previous post](//goyalankit.com/blog/learning-concept-checking-the-hard-way-1), I talked about importance/use case of concept
 checking. In this post we'll step by step see how concept checking
 works.
 
@@ -63,7 +63,7 @@ Note that the compilation error occurs because `NonDefault` type doesn't
 have a "default" constructor. Line 7, defines a constructor; hence there won't be a default constructor that will be created anymore. If you uncomment the line number 6, the compilation error on line 14 will go away since now compiler will find a matching constructor.
 
 
-Example, taken from [cpp reference](http://naipc.uchicago.edu/2014/ref/cppreference/en/cpp/utility/declval.html)
+Example, taken from [cpp reference](//naipc.uchicago.edu/2014/ref/cppreference/en/cpp/utility/declval.html)
 
 {% highlight cpp linenos %}
   struct Default {
@@ -164,7 +164,7 @@ typename T for int.
 Compiler doesn't throw a compilation error here; it removes this
 overload from potential candidate and tries to
 find the next possible match. If one or more candidates remain and overload resolution succeeds, 
-the invocation is well-formed. Check out more about SFINANE on [wikipedia](http://en.wikipedia.org/wiki/Substitution_failure_is_not_an_error)
+the invocation is well-formed. Check out more about SFINANE on [wikipedia](//en.wikipedia.org/wiki/Substitution_failure_is_not_an_error)
 
 * **Given two possible candidates where one is variadic and other is not.
   Compiler always chooses the non-variadic method.** For example, In the
@@ -193,4 +193,4 @@ non-variadic method.
 
 ---
 
-That's all we need and in the [next post](http://goyalankit.com/blog/learning-concept-checking-the-hard-way-3) we'll write our `has_less` method.
+That's all we need and in the [next post](//goyalankit.com/blog/learning-concept-checking-the-hard-way-3) we'll write our `has_less` method.

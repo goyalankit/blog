@@ -84,7 +84,7 @@ Above Example is a trivial example to show you the use case, the error
 could be buried deep into your code and may not represent the actual reason for
 failure.
 
-Boost documentation gives a [good example]( http://www.boost.org/doc/libs/1_55_0/libs/concept_check/concept_check.htm ).
+Boost documentation gives a [good example]( //www.boost.org/doc/libs/1_55_0/libs/concept_check/concept_check.htm ).
 
 In short it would be good to have a `has_less` method for a generic type 
 that determines if the given type has a `<` method defined or not. Using
@@ -101,15 +101,15 @@ BOOST_CLASS_REQUIRE(T, boost, LessThanComparableConcept);
 
 {% endhighlight %}
 
-For more info: visit [http://www.boost.org/doc/libs/1_55_0/libs/concept_check/using_concept_check.htm](http://www.boost.org/doc/libs/1_55_0/libs/concept_check/using_concept_check.htm)
+For more info: visit [https://www.boost.org/doc/libs/1_55_0/libs/concept_check/using_concept_check.htm](//www.boost.org/doc/libs/1_55_0/libs/concept_check/using_concept_check.htm)
 
-In the [next post](http://goyalankit.com/blog/learning-concept-checking-the-hard-way-2), we'll implement our own version of concept
+In the [next post](//goyalankit.com/blog/learning-concept-checking-the-hard-way-2), we'll implement our own version of concept
 checking. It involves some really cool template tricks and C++ trivia.
 
 Feel free to comment and give suggestions.
 
 References:
 
-1. http://www.boost.org/doc/libs/1_55_0/libs/concept_check/concept_check.htm
+1. https://www.boost.org/doc/libs/1_55_0/libs/concept_check/concept_check.htm
 
 

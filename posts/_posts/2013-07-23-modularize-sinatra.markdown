@@ -6,18 +6,18 @@ comments: true
 categories: sinatra ruby gem labs
 ---
 
-[**Sinatra**](http://github.com/sinatra/sinatra) is simple, small and fast. 
+[**Sinatra**](//github.com/sinatra/sinatra) is simple, small and fast. 
 > Sinatra is a DSL for quickly creating web applications in Ruby with minimal effort. **- sinatra readme**
 >
 
-The only downside is that it doesn't offer you the typical [MVC](http://en.wikipedia.org/wiki/Model–view–controller) like [**Rails**](http://github.com/rails/rails). 
+The only downside is that it doesn't offer you the typical [MVC](//en.wikipedia.org/wiki/Model–view–controller) like [**Rails**](//github.com/rails/rails). 
 
-Lot of times Rails is an overkill for a simple application and Sinatra seems like a perfect choice. Since using Sinatra, you could write all your code in a single file, and at one time it becomes really hard to manage the code and you may feel the need of porting it to a framework like Rails. However, you don't need all the features that comes with Rails. What you need here is some kind of modularization in your application. For this very purpose I created a gem called [modularize_sinatra](http://github.com/goyalankit/modularize_sinatra)
+Lot of times Rails is an overkill for a simple application and Sinatra seems like a perfect choice. Since using Sinatra, you could write all your code in a single file, and at one time it becomes really hard to manage the code and you may feel the need of porting it to a framework like Rails. However, you don't need all the features that comes with Rails. What you need here is some kind of modularization in your application. For this very purpose I created a gem called [modularize_sinatra](//github.com/goyalankit/modularize_sinatra)
 
 > **modularize_sinatra** creates a *Rails like* MVC structure without the overhead. 
 
 
-[`modularize_sinatra`](https://rubygems.org/gems/modularize_sinatra) is available on rubygems. For installation and usage instructions please visit [modularize_sinatra](http://github.com/goyalankit/modularize_sinatra)
+[`modularize_sinatra`](//rubygems.org/gems/modularize_sinatra) is available on rubygems. For installation and usage instructions please visit [modularize_sinatra](//github.com/goyalankit/modularize_sinatra)
 
 ## What does it do?
 It generates the following directory structure, when generated using `modularize_sinatra myapp -C user` 
@@ -63,6 +63,6 @@ Note the **lib/models** in above point. You could create a directory called `mod
 * **script** - You could get rid of this directory. This is just a container to put your scripts.
 * **spec** - Place your specifications inside this. modularize_sinatra integrates rspec for you by default. 
 
-Please contribute at [modularize_sinatra](http://github.com/goyalankit/modularize_sinatra)
+Please contribute at [modularize_sinatra](//github.com/goyalankit/modularize_sinatra)
 
 Comments and suggestions are most welcome.

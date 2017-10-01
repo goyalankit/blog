@@ -6,7 +6,7 @@ comments: true
 categories: code programming cpp templates concept-checking
 ---
 
-In the previous posts [this](http://goyalankit.com/blog/learning-concept-checking-the-hard-way-1) and [this](http://goyalankit.com/blog/learning-concept-checking-the-hard-way-2), we looked at the basics of concept checking and stuff you need to know.
+In the previous posts [this](//goyalankit.com/blog/learning-concept-checking-the-hard-way-1) and [this](//goyalankit.com/blog/learning-concept-checking-the-hard-way-2), we looked at the basics of concept checking and stuff you need to know.
 
 ## Finally here's our `has_less` method.
 
@@ -77,8 +77,8 @@ std::false_type has_less_helper(...);
 {% endhighlight %}
 
 
-*Note:* [`true_type`](http://www.cplusplus.com/reference/type_traits/true_type/) and [`false_type`](http://www.cplusplus.com/reference/type_traits/true_type/) are just structs with values as
-`true` and `false` resp. Check out [their usage](http://www.cplusplus.com/reference/type_traits/integral_constant/)
+*Note:* [`true_type`](//www.cplusplus.com/reference/type_traits/true_type/) and [`false_type`](//www.cplusplus.com/reference/type_traits/true_type/) are just structs with values as
+`true` and `false` resp. Check out [their usage](//www.cplusplus.com/reference/type_traits/integral_constant/)
 
 
 
