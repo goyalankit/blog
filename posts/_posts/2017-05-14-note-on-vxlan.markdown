@@ -3,7 +3,7 @@ layout: post
 title: "Why VXLAN (rfc7348)?"
 date: 2017-06-24 10:04
 comments: true
-published: true
+published: false
 categories: networks vxlan
 ---
 
@@ -53,9 +53,9 @@ Consider the network topology in the diagram below network A and B are part of t
 
 The requirement from underlay network (UDP) is that it should have ip connectivity between two networks, UDP port [4789](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml?search=4789) is reserved for VXLAN.
 
-The endpoint of the tunnel, **VTEP (Virtual Tunnel End Point)** forms the control plane of VXLAN (overlay network). It maintains a mapping of internal MAC address to the outer IP address i.e., while sending a packet from A: 10.0.0.1 to B: 10.0.0.2.
+The endpoint of the tunnel, **VTEP (Virtual Tunnel End Point)** forms the control plane of VXLAN (overlay network). It maintains a mapping of internal MAC address to the outer IP address i.e., while sending a packet from A: 10.0.0.1 to B: 10.0.0.2. VTEP can learn 
 
-VMs in subnets (A and B in the above picture) are unaware of the VXLAN themselves, and they route the traffic as they normally would. Say, a VM in A (10.0.0.1) wants to route traffic to another VM in A (10.0.0.2) located at a different physical server and network. It would send the MAC frame as it would if both were on the same physical network. VTEP on that host checks the MAC address of 10.0.0.2
+VMs in subnets (A and B in the above picture) are unaware of the VXLAN themselves, and they route the traffic as they normally would. Say, a VM (A, 10.0.0.1) wants to route traffic to another VM in same network (B, 10.0.0.2) located at a different physical server and network. It would send the MAC frame as it would if both were on the same physical network. VTEP on that host checks the MAC address of 10.0.0.2
 
 Following packet trace shows the VXLAN packet wrapper in UDP outer packet. UDP forms the overlay network and inner nodes (with IP 10.0.0.1) don't need to know about overlay network.
 
