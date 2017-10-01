@@ -12,7 +12,7 @@ categories: networks drivers macvlan
 
 ## Experimental setup
 
-If you want to verify things for yourself or just play with it, you can create a new module with macvlan driver [source code](http://elixir.free-electrons.com/linux/v3.10.105/source/drivers/net/macvlan.c) and use [printk](https://en.wikipedia.org/wiki/Printk) to print various things in the driver. For example, `prink` can be placed in init method of the module.
+If you want to verify things for yourself or just play with it, you can create a new module with macvlan driver [source code](//elixir.free-electrons.com/linux/v3.10.105/source/drivers/net/macvlan.c) and use [printk](//en.wikipedia.org/wiki/Printk) to print various things in the driver. For example, `prink` can be placed in init method of the module.
 
 
 {% highlight c %}
@@ -35,12 +35,12 @@ vagrant@precise64:~$ dmesg
 # `Macvlan` Driver workflow
 
 ## Load time
-During the driver [load time](http://elixir.free-electrons.com/linux/v3.10.105/source/drivers/net/macvlan.c#L977), it registers itself to netdevice notifier chain by calling `register_netdevice_notifier`. 
+During the driver [load time](//elixir.free-electrons.com/linux/v3.10.105/source/drivers/net/macvlan.c#L977), it registers itself to netdevice notifier chain by calling `register_netdevice_notifier`. 
 
 Notification chains facilitate passing of messages between different modules by providing a _publisher-subscriber_ functionality. Any operation on **any net device** is delivered to all the subscribers. 
 
 
-The driver registers  [`macvlan_device_event`](http://elixir.free-electrons.com/linux/v3.10.105/source/drivers/net/macvlan.c#L931) as the callback and in the callback it checks if the device is a macvlan port. If not, then it returns immediately with `NOTIFY_DONE`. If it is, then it handles the event accordingly.
+The driver registers  [`macvlan_device_event`](//elixir.free-electrons.com/linux/v3.10.105/source/drivers/net/macvlan.c#L931) as the callback and in the callback it checks if the device is a macvlan port. If not, then it returns immediately with `NOTIFY_DONE`. If it is, then it handles the event accordingly.
 
 After registering itself for notification events, it registers with routing netlink using `rtnl_link_register` which is netlink in `NETLINK_ROUTE` netlink family. Netlink socket is an asynchronous queue based communication channel between kernel space and user space. This socket based interface can be used to interact with macvlan driver. It registers callbacks for the following operations:
 
@@ -59,5 +59,5 @@ References:
 
 # References
 
-1. [Notification chains in Linux](http://codingfreak.blogspot.com/2012/01/notification-chains-in-linux-part-01.html)<br/>
+1. [Notification chains in Linux](//codingfreak.blogspot.com/2012/01/notification-chains-in-linux-part-01.html)<br/>
 1. 

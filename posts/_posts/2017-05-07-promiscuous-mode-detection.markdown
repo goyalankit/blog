@@ -7,11 +7,11 @@ published: true
 categories: networks devices
 ---
 
-Wikipedia defines [**promiscuous mode**](https://en.wikipedia.org/wiki/Promiscuous_mode) as a mode for a wired network interface controller (NIC) or wireless network interface controller (WNIC) that causes the controller to pass all traffic it receives to the central processing unit (CPU)rather than passing only the frames that the controller is intended to receive. 
+Wikipedia defines [**promiscuous mode**](//en.wikipedia.org/wiki/Promiscuous_mode) as a mode for a wired network interface controller (NIC) or wireless network interface controller (WNIC) that causes the controller to pass all traffic it receives to the central processing unit (CPU)rather than passing only the frames that the controller is intended to receive. 
 
 # How do I tell if a device is in promiscuous mode? 
 
-**tl;dr**: Kernel tracks promiscuous mode using flags on the device. For promiscuous mode, [IFF_PROMISC, 0x100](http://elixir.free-electrons.com/linux/v3.10.105/source/include/uapi/linux/if.h#L39) should be set.
+**tl;dr**: Kernel tracks promiscuous mode using flags on the device. For promiscuous mode, [IFF_PROMISC, 0x100](//elixir.free-electrons.com/linux/v3.10.105/source/include/uapi/linux/if.h#L39) should be set.
 
 For a given interface, check the flags to see if the promiscuous bit is set.
 {% highlight sh %}
@@ -24,7 +24,7 @@ $ cat /sys/devices/virtual/net/br0/flags
 
 Here's a quick python script to test promiscuous mode for all interfaces:
 
-<script src="https://gist.github.com/goyalankit/7ae7e967e68b1c2465646962e842ed2a.js"></script>
+<script src="//gist.github.com/goyalankit/7ae7e967e68b1c2465646962e842ed2a.js"></script>
 
 
 ---
@@ -39,7 +39,7 @@ We'll consider two examples here, first to show the case where it works as expec
 
 **A word on `netstat`:**
 
-In netstat command, flag **`P`** is used to display if the interface is in promiscuous mode. However, **`P`** is also used for point to point connection. You can verify from the net-tools code [here](https://github.com/ecki/net-tools/blob/2617bbe4499749b93317cb41b2104278295eba81/lib/interface.c#L627-L634)
+In netstat command, flag **`P`** is used to display if the interface is in promiscuous mode. However, **`P`** is also used for point to point connection. You can verify from the net-tools code [here](//github.com/ecki/net-tools/blob/2617bbe4499749b93317cb41b2104278295eba81/lib/interface.c#L627-L634)
 
 ## Example 1: When it works
 Following example, sets the promiscuous mode **on** using the `iproute2` and `netstat -i` command. You can verify it using the `iproute2` command and kernel logs.
@@ -79,7 +79,7 @@ eth0    1500 0    28880  0      0      0      17050    0      0      0   BMPRU
 
 {% endhighlight %}
 
-Let's check the kernel log messages, as logged in [__dev_set_promiscuity](http://elixir.free-electrons.com/linux/v3.10.105/source/net/core/dev.c#L4531) whenever a device is added/removed to/from promiscuous mode.
+Let's check the kernel log messages, as logged in [__dev_set_promiscuity](//elixir.free-electrons.com/linux/v3.10.105/source/net/core/dev.c#L4531) whenever a device is added/removed to/from promiscuous mode.
 
 {% highlight sh %}
 vagrant@precise64:~$ grep -r 'promiscuous' /var/log/kern.log
@@ -90,9 +90,9 @@ precise64 kernel: [44441.470885] device eth0 entered promiscuous mode
 
 ## Example 2: When it doesn't work
 
-Consider this for example, adding an interface to bridge; set the promiscuous mode on for that interface. Check out the post [Linux Bridge - how it works](http://goyalankit.com/blog/linux-bridge) to learn more about bridge.
+Consider this for example, adding an interface to bridge; set the promiscuous mode on for that interface. Check out the post [Linux Bridge - how it works](//goyalankit.com/blog/linux-bridge) to learn more about bridge.
 
-Following example creates a **bridge**, a **veth** pair and adds one end of the veth pair to bridge. According to [`br_add_if`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_if.c#L355), promiscuous mode is turned on for the interface.
+Following example creates a **bridge**, a **veth** pair and adds one end of the veth pair to bridge. According to [`br_add_if`](//elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_if.c#L355), promiscuous mode is turned on for the interface.
 
 {:.green_bold_text}
 Create a new interface and add it to a bridge
@@ -132,4 +132,4 @@ As expected, **the device was in fact moved to promiscuous mode but `iproute2` d
 
 # References
 
-1. [https://lists.gt.net/linux/kernel/178148](https://lists.gt.net/linux/kernel/178148)
+1. [https://lists.gt.net/linux/kernel/178148](//lists.gt.net/linux/kernel/178148)
