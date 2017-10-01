@@ -40,9 +40,9 @@ Special instruction is used to interrupt to request services from low level syst
 }
 </style>
 {:.os_concepts}
-![](http://i.imgur.com/cBhat6K.png )
+![](//i.imgur.com/cBhat6K.png )
 
-Several ways to implement interrupts. Could be implemented using a active wire (level triggered, high or low), edge triggered, message signaled, Doorbell [wiki link](http://en.wikipedia.org/wiki/Interrupt).
+Several ways to implement interrupts. Could be implemented using a active wire (level triggered, high or low), edge triggered, message signaled, Doorbell [wiki link](//en.wikipedia.org/wiki/Interrupt).
 
 # Distributed Shared Memory
 
@@ -75,7 +75,7 @@ AFS is stateful System
 - A server employing server-iniitiated cache needs to have state to validate cache.
 - UNIX use of file descriptors and implicit offsets is inherently stateful. servers must maintain tables to map file descriptors to inodes and store current offset within file.
 
-[Detailed Info](http://www.cs.gmu.edu/~setia/cs571-F02/slides/lec9.pdf)
+[Detailed Info](//www.cs.gmu.edu/~setia/cs571-F02/slides/lec9.pdf)
 
 # Swapping
 
@@ -84,11 +84,11 @@ When all the process in a multiprogrammed CPU are not able reside in memory at t
 # Inverted Page Table
 
 {:.os_concepts}
-![](http://i.imgur.com/ItoPoXI.jpg?1 )
+![](i.imgur.com/ItoPoXI.jpg?1 )
 
 Linear Inverted Tables: Rather than mapping virtual addresses to physical addresses, we map physical address to virtual addresses.
 
-More details: [http://www.cs.berkeley.edu/~kamil/teaching/sp04/040104.pdf](http://www.cs.berkeley.edu/~kamil/teaching/sp04/040104.pdf)
+More details: [https://www.cs.berkeley.edu/~kamil/teaching/sp04/040104.pdf](http://www.cs.berkeley.edu/~kamil/teaching/sp04/040104.pdf)
 
 # File Systems
 
@@ -99,4 +99,4 @@ Give at least three strategies that a file system can employ to reduce the time 
 * Caching - If the data is being changed rapidly, cache will become stale soon and benifits will diminish.
 
 
-More details: [http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/](http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/)
+More details: [https://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/](//duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/)
