@@ -1,5 +1,5 @@
 # Blog settings
-permalink: /blog/:title
+permalink: /blog/:title/
 
 url: https://goyalankit.com
 
