@@ -14,16 +14,16 @@ layout: projects
 # Compilers
 
 * [Perfexpert](https://github.com/tacc/perfexpert) : Contributed ability to get metrics for set associated cache conflicts to give relevant code change suggestions to high performance applications.
-* [DFA framework and LLVM passes](http://github.com/goyalankit/compilers-and-llvm) : Implementation of Framework for data flow analysis and LLVM passes that include Local Optimizations (constant folding, strength reduction, algebraic identity), LICM (loop invariant code motion) and Dead code elimination
+* [DFA framework and LLVM passes](https://github.com/goyalankit/compilers-and-llvm) : Implementation of Framework for data flow analysis and LLVM passes that include Local Optimizations (constant folding, strength reduction, algebraic identity), LICM (loop invariant code motion) and Dead code elimination
 * [Phase order optimization in compilers](https://github.com/goyalankit/po-compiler) : Phase ordering of compile optimization using ML with static and dynamic features ([write up](https://github.com/goyalankit/po-compiler/blob/master/project-report/sigplanconf-template.pdf){:.projects.__report})
 * [Instrumentation tools](https://github.com/goyalankit/analyze-valgrind) : Tools to instrument C++ code using clang for memory accesses and to parse the output from valgrind. It generates the binary that can be analyzed using [perfexpert](https://github.com/tacc/perfexpert){:.projects.__report}
-* [Undergrad Projects](https://sites.google.com/a/iitj.ac.in/ankit/Downloads) : [Compiler](http://github.com/goyalankit/Sub-Java-Compiler), NFS, Vertex Cover, etc
+* [Undergrad Projects](https://sites.google.com/a/iitj.ac.in/ankit/Downloads) : [Compiler](https://github.com/goyalankit/Sub-Java-Compiler), NFS, Vertex Cover, etc
 
 # Applications
 
 * [Chatty Meanbot](https://github.com/goyalankit/chatty-meanbot/) : A jabber client bot.
-* [CLI Resume](https://github.com/goyalankit/cli-resume) : Creates an online resume with command line interface using data from Linkedin. ([demo](http://resume.ankitgoyal.me/){:.projects.__report})
-* [Listener Bot](http://github.com/goyalankit/listenerbot) : An android app to receive notifications using GCM
+* [CLI Resume](https://github.com/goyalankit/cli-resume) : Creates an online resume with command line interface using data from Linkedin. ([demo](https://resume.ankitgoyal.me/){:.projects.__report})
+* [Listener Bot](https://github.com/goyalankit/listenerbot) : An android app to receive notifications using GCM
 * [Mr. Mean Bot](https://github.com/goyalankit/themeanbot) : Twitter Dictionary bot
 * [Reverse geo coding](https://github.com/goyalankit/reverse-geo-coding) : Address from coordinates using Yahoo! Api.
 * [Ride Aggregator](https://github.com/goyalankit/ride-agg) : Application that compares fares between different ride services
@@ -31,15 +31,15 @@ layout: projects
 # Tools
 
 * [mdpresent](https://github.com/goyalankit/mdpresent) : Tool to create presentation from markdown (uses mdpress) and deploys them to heroku.
-* [Lyricit](http://github.com/goyalankit/lyricit) : Gem to update itunes lyrics from command line.
+* [Lyricit](https://github.com/goyalankit/lyricit) : Gem to update itunes lyrics from command line.
 * [Benchmark tools](https://github.com/goyalankit/benchmark-tools) : Tools to simulate cache and code for getting hardware counters
 
 # Others
 
-* [Modularize Sinatra](http://modularize-sinatra.goyalankit.com/) : Modularized Code Generator for Sinatra.
+* [Modularize Sinatra](https://modularize-sinatra.goyalankit.com/) : Modularized Code Generator for Sinatra.
 * [dotfiles](https://github.com/goyalankit/dotfiles) : Dotfiles to replicate my development environment.
-* [Mbdb](http://github.com/goyalankit/mbdb) : Implementation of MDB (miniature database) that uses Berkley DB as backend to support subset of SQL
+* [Mbdb](https://github.com/goyalankit/mbdb) : Implementation of MDB (miniature database) that uses Berkley DB as backend to support subset of SQL
 
 # Yet another blog
 
-* [Endeavor](http://blog.goyalankit.com/) : Undergraduate blog
+* [Endeavor](https://blog.goyalankit.com/) : Undergraduate blog

@@ -1,6 +1,8 @@
 # Blog settings
 permalink: /blog/:title
 
+url: https://goyalankit.com
+
 
 # My variables
 name: /home/ankit
