@@ -6,7 +6,7 @@ comments: true
 categories: code programming cpp templates concept-checking
 ---
 
-In the [previous post](//goyalankit.com/blog/learning-concept-checking-the-hard-way-1), I talked about importance/use case of concept
+In the [previous post](https://goyalankit.com/blog/learning-concept-checking-the-hard-way-1), I talked about importance/use case of concept
 checking. In this post we'll step by step see how concept checking
 works.
 
@@ -193,4 +193,4 @@ non-variadic method.
 
 ---
 
-That's all we need and in the [next post](//goyalankit.com/blog/learning-concept-checking-the-hard-way-3) we'll write our `has_less` method.
+That's all we need and in the [next post](https://goyalankit.com/blog/learning-concept-checking-the-hard-way-3) we'll write our `has_less` method.

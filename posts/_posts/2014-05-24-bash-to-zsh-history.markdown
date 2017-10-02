@@ -6,7 +6,7 @@ comments: true
 categories: bash zsh oh-my-zsh snippet
 ---
 
-Import bash history to zsh history. [Gist Link](//gist.github.com/goyalankit/a1c88bfc69107f93cda1)
+Import bash history to zsh history. [Gist Link](https://gist.github.com/goyalankit/a1c88bfc69107f93cda1)
 
 {% highlight ruby %}
 #################################################################

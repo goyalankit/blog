@@ -12,14 +12,14 @@ Lucene. You can do all kind of customized searches on huge amount of
 data by creating customized indexes. This post gives an overview of
 Analysis module of elasticsearch.
 
-Analyzers basically helps you in analyzing your data.`:o` You need to analyze data while creating indexes and while searching. You could analyze your analyzers using [Analyze Api](//www.elasticsearch.org/guide/reference/api/admin-indices-analyze.html) provided by elasticsearch.
+Analyzers basically helps you in analyzing your data.`:o` You need to analyze data while creating indexes and while searching. You could analyze your analyzers using [Analyze Api](https://www.elasticsearch.org/guide/reference/api/admin-indices-analyze.html) provided by elasticsearch.
 
 Creating indexes mainly involves three steps: 
 
-* **Pre-processing of raw text** using [char filters]( //www.elasticsearch.org/guide/reference/index-modules/analysis/mapping-charfilter/). This may be used to strip html tags, or you may define your custom mapping.  (*Couldn't find a way to test this using analyse api. Please put it in comments if you know some way to test these through Analyze Api*) 
+* **Pre-processing of raw text** using [char filters]( https://www.elasticsearch.org/guide/reference/index-modules/analysis/mapping-charfilter/). This may be used to strip html tags, or you may define your custom mapping.  (*Couldn't find a way to test this using analyse api. Please put it in comments if you know some way to test these through Analyze Api*) 
 
 
-Example: You could use a **char-filter** of type [`html_strip`](//www.elasticsearch.org/guide/reference/index-modules/analysis/htmlstrip-charfilter/) to strip out html tags.  
+Example: You could use a **char-filter** of type [`html_strip`](https://www.elasticsearch.org/guide/reference/index-modules/analysis/htmlstrip-charfilter/) to strip out html tags.  
 
 A text like this:
 
@@ -35,7 +35,7 @@ Learn Something New Today! which is always fun
 {% endhighlight %}
 <!-- more -->
 
-* **Tokenization of the pre-processed text** using tokenizers. Tokenizers breaks the pre-processed text into tokens. There are different kind of tokenizers available and each of them breaks the text into words differently. By default elasticsearch uses [standard tokenizer](//www.elasticsearch.org/guide/reference/index-modules/analysis/standard-tokenizer/). 
+* **Tokenization of the pre-processed text** using tokenizers. Tokenizers breaks the pre-processed text into tokens. There are different kind of tokenizers available and each of them breaks the text into words differently. By default elasticsearch uses [standard tokenizer](https://www.elasticsearch.org/guide/reference/index-modules/analysis/standard-tokenizer/). 
 
 
 standard tokenizer normalizes the data. Note that it removes `!` from `Today!`
@@ -118,9 +118,9 @@ curl -XGET 'localhost:9200/_analyze?tokenizer=standard' \
 }
 {% endhighlight %}
 
-* After the tokenization, **token filters** performs further operations on the processed text like converting it to [lowercase](//www.elasticsearch.org/guide/reference/index-modules/analysis/lowercase-tokenfilter.html) or [reversing](//www.elasticsearch.org/guide/reference/index-modules/analysis/reverse-tokenfilter/) of tokens.
+* After the tokenization, **token filters** performs further operations on the processed text like converting it to [lowercase](https://www.elasticsearch.org/guide/reference/index-modules/analysis/lowercase-tokenfilter.html) or [reversing](https://www.elasticsearch.org/guide/reference/index-modules/analysis/reverse-tokenfilter/) of tokens.
 
-By default [standard tokenfilter](//www.elasticsearch.org/guide/reference/index-modules/analysis/standard-tokenfilter/) is used which normalizes the tokens. After the application of lowercase tokenfilter.
+By default [standard tokenfilter](https://www.elasticsearch.org/guide/reference/index-modules/analysis/standard-tokenfilter/) is used which normalizes the tokens. After the application of lowercase tokenfilter.
 
 A processed text like this:
 

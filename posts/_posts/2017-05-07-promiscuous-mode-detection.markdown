@@ -90,7 +90,7 @@ precise64 kernel: [44441.470885] device eth0 entered promiscuous mode
 
 ## Example 2: When it doesn't work
 
-Consider this for example, adding an interface to bridge; set the promiscuous mode on for that interface. Check out the post [Linux Bridge - how it works](//goyalankit.com/blog/linux-bridge) to learn more about bridge.
+Consider this for example, adding an interface to bridge; set the promiscuous mode on for that interface. Check out the post [Linux Bridge - how it works](https://goyalankit.com/blog/linux-bridge) to learn more about bridge.
 
 Following example creates a **bridge**, a **veth** pair and adds one end of the veth pair to bridge. According to [`br_add_if`](//elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_if.c#L355), promiscuous mode is turned on for the interface.
 

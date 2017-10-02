@@ -61,7 +61,7 @@ options_array = [:first_name, "Ankit", :last_name, "Goyal"]
 options_hash = {:first_name => "Ankit", :last_name => "Goyal"}
 {% endhighlight %}
 
-You will see that [`[]`]( //www.ruby-doc.org/core-2.1.0/Hash.html#method-c-5B-5D ) method in **Hash** class takes [key, value, ...] as an argument and
+You will see that [`[]`]( https://www.ruby-doc.org/core-2.1.0/Hash.html#method-c-5B-5D ) method in **Hash** class takes [key, value, ...] as an argument and
 creates a Hash for you. For example:
 
 {% highlight ruby %}
@@ -196,7 +196,7 @@ know some other way that splash could be used feel free to suggest it in comment
 
 1. //endofline.wordpress.com/2011/01/21/the-strange-ruby-splat/
 2. //www.jacopretorius.net/2012/01/splat-operator-in-ruby.html
-3. //www.ruby-doc.org/
+3. https://www.ruby-doc.org/
 
 
 
