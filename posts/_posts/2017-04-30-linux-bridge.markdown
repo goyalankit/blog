@@ -8,7 +8,7 @@ categories: bridge networks
 ---
 
 
-Linux bridge is a layer 2 virtual device that on its own cannot receive or transmit anything unless you bind one or more real devices to it. [source](http://shop.oreilly.com/product/9780596002558.do).
+Linux bridge is a layer 2 virtual device that on its own cannot receive or transmit anything unless you bind one or more real devices to it. [source](//shop.oreilly.com/product/9780596002558.do).
 
 As [Anatomy of a Linux bridge](https://wiki.aalto.fi/download/attachments/70789083/linux_bridging_final.pdf) puts it, bridge mainly consists of four major components:
 
@@ -38,7 +38,7 @@ ioctl(3, SIOCBRADDBR, 0x7fff2eae9966)   = 0
 ...
 {% endhighlight %}
 
-Note that there is no device at this point to handle the ioctl command, so the ioctl command is handled by a stub method: [`br_ioctl_deviceless_stub`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_ioctl.c#L351), which in turn calls [`br_add_bridge`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_if.c#L235). This method calls `alloc_netdev`, which is a macro that eventually calls [`alloc_netdev_mqs`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/core/dev.c#L5660).
+Note that there is no device at this point to handle the ioctl command, so the ioctl command is handled by a stub method: [`br_ioctl_deviceless_stub`](//elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_ioctl.c#L351), which in turn calls [`br_add_bridge`](//elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_if.c#L235). This method calls `alloc_netdev`, which is a macro that eventually calls [`alloc_netdev_mqs`](//elixir.free-electrons.com/linux/v3.10.105/source/net/core/dev.c#L5660).
 
 {% highlight c %}
 br_ioctl_deviceless_stub
@@ -47,7 +47,7 @@ br_ioctl_deviceless_stub
            |- alloc_netdev_mqs  // creates the network device
               |- br_dev_setup // sets br_dev_ioctl handler               
 {% endhighlight %}
-`alloc_netdev` also initializes the new netdevice using the [`br_dev_setup`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_device.c#L335). This also includes setting up the bridge specific [`ioctl handler`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_ioctl.c#L379). If you look at the handler code, it handles ioctl command to add/delete interfaces.
+`alloc_netdev` also initializes the new netdevice using the [`br_dev_setup`](//elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_device.c#L335). This also includes setting up the bridge specific [`ioctl handler`](//elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_ioctl.c#L379). If you look at the handler code, it handles ioctl command to add/delete interfaces.
 
 {% highlight c %}
 int br_dev_ioctl(struct net_device *dev, struct ifreq *rq, int cmd) {
@@ -81,7 +81,7 @@ ioctl(3, SIOCBRADDIF, 0x7fff75bfe5f0)   = 0
 
 **`br_add_if`**
 
-The [`br_add_if`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_if.c#L325) method creates and sets up the new interface/port for the bridge by allocating a new `net_bridge_port` object. The object initialization is particularly interesting, as it sets the interface to receive all traffic, adds the network interface address for the new interface to the forwarding database as the local entry and attaches the interface as the slave to the bridge device.
+The [`br_add_if`](//elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_if.c#L325) method creates and sets up the new interface/port for the bridge by allocating a new `net_bridge_port` object. The object initialization is particularly interesting, as it sets the interface to receive all traffic, adds the network interface address for the new interface to the forwarding database as the local entry and attaches the interface as the slave to the bridge device.
 
 {% highlight c %}
 /* Truncated version */
@@ -119,7 +119,7 @@ vagrant@precise64:~$ grep -r 'promiscuous' /var/log/kern.log
 precise64 kernel: [ 5185.751666] device veth0 entered promiscuous mode
 {% endhighlight %}
 
-Finally, `br_add_if` method calls `netdev_rx_handler_register`, that sets the `rx_handler` of the interface to [`br_handle_frame`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_input.c#L153)
+Finally, `br_add_if` method calls `netdev_rx_handler_register`, that sets the `rx_handler` of the interface to [`br_handle_frame`](//elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_input.c#L153)
 
 After this method finishes, you have an interface (or port) in bridge.
 
@@ -129,7 +129,7 @@ After this method finishes, you have an interface (or port) in bridge.
 
 {:.image_size_600}
 ![bridge frame processing](https://gist.githubusercontent.com/goyalankit/6ea0ea8448ad1946e0791b308970a5d3/raw/cb59f23f7017edd47c075817aa2cdabb76bfa79d/frame_processing_bridge2.png)
-Frame processing starts with device-independent network code, in [`__netif_receive_skb`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/core/dev.c#L3579) which calls the `rx_handler` of the interface, that was set to [`br_handle_frame`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_input.c#L153) at the time of adding the interface to bridge.
+Frame processing starts with device-independent network code, in [`__netif_receive_skb`](//elixir.free-electrons.com/linux/v3.10.105/source/net/core/dev.c#L3579) which calls the `rx_handler` of the interface, that was set to [`br_handle_frame`](//elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_input.c#L153) at the time of adding the interface to bridge.
 
 The `br_handle_frame` does the initial processing and any address with prefix `01-80-C2-00-00` is a control plane address, that may need special processing. From the comments in `br_handle_frame`:
 
@@ -151,7 +151,7 @@ The `br_handle_frame` does the initial processing and any address with prefix `0
 
 In the method, note that stp messages are either passed to upper layers or forwarded if STP is enabled on the bridge or disabled respectively. Finally if a forwarding decision is made, the packet is passed to `br_handle_frame_finish`, where the actual forwarding happens.
 
-Here's the highly truncated version of [`br_handle_frame_finish`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_input.c#L60):
+Here's the highly truncated version of [`br_handle_frame_finish`](//elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_input.c#L60):
 
 {% highlight c %}
 /* note: already called with rcu_read_lock */
@@ -202,9 +202,9 @@ As you can see in above snippet of `br_handle_frame_finish`,
 - If the destination is not local, then based on if we found an entry in forwarding database, either the frame is forwarded (`br_forward`) or flooded to all ports (`br_flood_forward`).
 - Later, packet is delivered locally (`br_pass_frame_up`) if needed (based on either the current host being the destination or the net device being in promiscuous mode).
 
-[`br_forward`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_forward.c#L120) method either clones and then deliver (if it is also to be delivered locally, by calling `deliver_clone`), or directly forwards the message to the intended destination interface by calling [`__br_forward`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_forward.c#L87).
+[`br_forward`](//elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_forward.c#L120) method either clones and then deliver (if it is also to be delivered locally, by calling `deliver_clone`), or directly forwards the message to the intended destination interface by calling [`__br_forward`](//elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_forward.c#L87).
 
-[`bt_flood_forward`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_forward.c#L212) forwards the frame on each interface by iterating through the list in [`br_flood`](http://elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_forward.c#L212) method.
+[`bt_flood_forward`](//elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_forward.c#L212) forwards the frame on each interface by iterating through the list in [`br_flood`](//elixir.free-electrons.com/linux/v3.10.105/source/net/bridge/br_forward.c#L212) method.
 
 # Conclusion
 
@@ -225,8 +225,8 @@ Ah, the wonderful world of bridges.
 
 
 ## References:
-[Handwritten notes](http://goyalankit.com/blog/linux-bridge-notes)
+[Handwritten notes](//goyalankit.com/blog/linux-bridge-notes)
 
 [1] [Anatomy of a Linux bridge](https://wiki.aalto.fi/download/attachments/70789083/linux_bridging_final.pdf)<br/>
-[2] [Understanding Linux Networking Internals - Christian Benvenuti](http://shop.oreilly.com/product/9780596002558.do)<br/>
-[3] [Linux kernel v3.10.105 source code](http://elixir.free-electrons.com/linux/v3.10.105/source)
+[2] [Understanding Linux Networking Internals - Christian Benvenuti](//shop.oreilly.com/product/9780596002558.do)<br/>
+[3] [Linux kernel v3.10.105 source code](//elixir.free-electrons.com/linux/v3.10.105/source)

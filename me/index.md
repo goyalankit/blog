@@ -52,8 +52,8 @@ You can *find me on the interwebs*{:.start_color} at these links
 {:.tmargin}
 - *Keybase*{:.bold_text}: [goyalankit](https://keybase.io/goyalankit)
 - *Github*{:.bold_text}: [@goyalankit](https://github.com/goyalankit)
-- *Linkedin*{:.bold_text}: [goyalankit3](http://linkedin.com/in/goyalankit3)
-- *Twitter*{:.bold_text}: [@_goyalankit](http://twitter.com/_goyalankit)
+- *Linkedin*{:.bold_text}: [goyalankit3](https://linkedin.com/in/goyalankit3)
+- *Twitter*{:.bold_text}: [@_goyalankit](https://twitter.com/_goyalankit)
 
 <br/>
 {:.clear_both}

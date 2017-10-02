@@ -88,7 +88,7 @@ When all the process in a multiprogrammed CPU are not able reside in memory at t
 
 Linear Inverted Tables: Rather than mapping virtual addresses to physical addresses, we map physical address to virtual addresses.
 
-More details: [https://www.cs.berkeley.edu/~kamil/teaching/sp04/040104.pdf](http://www.cs.berkeley.edu/~kamil/teaching/sp04/040104.pdf)
+More details: [https://www.cs.berkeley.edu/~kamil/teaching/sp04/040104.pdf](//www.cs.berkeley.edu/~kamil/teaching/sp04/040104.pdf)
 
 # File Systems
 

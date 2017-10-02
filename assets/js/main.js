@@ -1,5 +1,5 @@
 var nowPlaying = {
-    getRecentTracksURL: "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=getmicah&api_key=b4678efadfadbcf8882ed8e5432173b1&format=json",
+    getRecentTracksURL: "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=getmicah&api_key=b4678efadfadbcf8882ed8e5432173b1&format=json",
     recentTrack: null,
     init: function() {
         this.cacheDom();
