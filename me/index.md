@@ -55,11 +55,13 @@ You can *find me on the interwebs*{:.start_color} at these links
 - *Linkedin*{:.bold_text}: [goyalankit3](https://linkedin.com/in/goyalankit3)
 - *Twitter*{:.bold_text}: [@_goyalankit](https://twitter.com/_goyalankit)
 
+Send me an *encrypted message*{:.start_color} using my [public key](https://secure.goyalankit.com/)
+
 <br/>
 {:.clear_both}
 
 ---
-_Since you are here, enjoy the mesmerizing cat._
+Since you are here, enjoy the *mesmerizing cat*{:.start_color}.
 
 
 {:.el_gato}
