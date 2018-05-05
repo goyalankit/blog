@@ -7,7 +7,7 @@ published: false
 categories: networks vxlan
 ---
 
-From the [rfc7348](//tools.ietf.org/html/rfc7348#page-5) 
+From the [rfc7348](//tools.ietf.org/html/rfc7348#page-5)
 > VXLAN is a Layer 2 overlay scheme on a Layer 3 network.
 
 To understand VXLAN better, let's first understand what's subnetting and VLAN.
@@ -19,8 +19,8 @@ The first thought that comes to my mind is IP subnetting. It can prevent two hos
 
 Say now we have two subnets, `10.1.2.0/25` where the two ranges are `10.1.2.1 - 10.1.2.126` and `10.1.2.129  - 10.1.2.254`. The broadcast address for first subnet is `10.1.2.127` and for second subnet it's `10.1.2.255`.
 
- However, **they still have the same layer 2 broadcast domain**. 
- 
+ However, **they still have the same layer 2 broadcast domain**.
+
  Consider the following example (in gif below) where even though the host (`10.1.2.2`) can't ping the other hosts (`10.1.2.130` and `10.1.2.134`) but it can broadcast in the other subnet since the broadcast domain at layer 2 is same and switch will broadcast all the frames with destination `FFFF.FFFF.FFFF` to all the ports irrespective of layer 3 source/destination IPs.
 
 {:.image_size_600}
@@ -32,10 +32,13 @@ The behavior is same in presence of router that allows the two subnets to talk t
 ![icmp own subnet broadcast](//gist.githubusercontent.com/goyalankit/df3686b62ac9bfd20f5eb292c02697bd/raw/cc30fb145049c25966637c02e11d01f8277ff8d3/icmp_own_broadcast.gif)
 
 # VLAN
-So how can we split the broadcast domains for the subnets? This is where VLAN comes in. VLAN can be used to separate the broadcast domains as well. 
+So how can we split the broadcast domains for the subnets? This is where VLAN comes in. VLAN can be used to separate the broadcast domains as well.
 
 VLAN frames are tagged by switch based on what port they arrive at. VLAN header is 4 bytes long and is placed before the type field in ethernet frame. It contains a 12 bit VLAN Identifier (VID) that identifies the frame it belongs to.
 
+
+{:.image_size_600}
+![vlan header](https://gist.githubusercontent.com/goyalankit/df3686b62ac9bfd20f5eb292c02697bd/raw/7b39523636ddb7d083194c9a12352c0e5594e628/vlan_header.png)
 
 In the example below, hosts (`10.1.2.3`, `10.1.2.2` and `10.1.2.135`) are in the same vlan (`vlan1`) and the remaining hosts belong to a different vlan. As in the previous experiments, let's ping the broadcast address (`10.1.2.127`) from the host `10.1.2.3`. Note that in this case, the packet is only broadcasted to the hosts that belong to the same vlan irrespective of the subnet. Note that the host (`10.1.2.35`) will drop the packet since the destination belongs to a different subnet and we don't have a default gateway set. However, hosts in the other vlan don't even receive the **icmp** request.
 
@@ -46,16 +49,38 @@ Note that 12 bit identifier limits the maximum number of vlans you can have to 4
 
 # VXLAN
 
-VXLAN stands for Virtual eXtensible Local Area Network, it's a layer 2 in layer 3 overlay tunnel. More specifically an Ethernet in UDP tunnel. The idea of VXLAN is similar to VLAN, as in it provides logical separation of private networks.
+VXLAN stands for Virtual eXtensible Local Area Network, it's a layer 2 in layer 3 overlay tunnel. More specifically an Ethernet in UDP tunnel. The idea of VXLAN is similar to VLAN, as in it provides logical separation of private networks accross physical network boundaries.
 
-Consider the network topology in the diagram below network A and B are part of the same private network separated by external network. A-P, B-Q use same subnet in the same physical network.
+Following up on the discussion above, let's say we need to be able to logically separate networks even further. In presence of multi tenants, we want to provide a logical separation of layer 3. Consider the network topology in the diagram below network A and B are part of the same private network separated by external network. A-P, B-Q wants to use same subnet in the same physical network.
 ![](//gist.githubusercontent.com/goyalankit/df3686b62ac9bfd20f5eb292c02697bd/raw/72eaedd22c441ad96b5864555901f5f1fd6347bc/vxlan3.png)
 
-The requirement from underlay network (UDP) is that it should have ip connectivity between two networks, UDP port [4789](//www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml?search=4789) is reserved for VXLAN.
+Firstly, in order to provide a separation accross physical network, we need an underlay network. The requirement from underlay network (UDP) is that it should have ip connectivity between two networks. Note that the UDP port [4789](//www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml?search=4789) is reserved for VXLAN.
 
-The endpoint of the tunnel, **VTEP (Virtual Tunnel End Point)** forms the control plane of VXLAN (overlay network). It maintains a mapping of internal MAC address to the outer IP address i.e., while sending a packet from A: 10.0.0.1 to B: 10.0.0.2. VTEP can learn 
+Secondly, in order to provide separation within the same physical network, we need something similar to VLAN to identify the two logically different but numerically same IP subnets. This is where VNI (VXLAN network identifier) from VXLAN header is used. Similar, to VID of VLAN.
 
-VMs in subnets (A and B in the above picture) are unaware of the VXLAN themselves, and they route the traffic as they normally would. Say, a VM (A, 10.0.0.1) wants to route traffic to another VM in same network (B, 10.0.0.2) located at a different physical server and network. It would send the MAC frame as it would if both were on the same physical network. VTEP on that host checks the MAC address of 10.0.0.2
+A VXLAN transmission looks something like this:
+
+{:.image_size_600}
+![vxlan_heder](//gist.githubusercontent.com/goyalankit/df3686b62ac9bfd20f5eb292c02697bd/raw/b1bd2d4b9eef3ee0c8a72fecc09c0f75d49c1bda/vxlan_header.png)
+
+```
+   VXLAN Header:
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |R|R|R|R|I|R|R|R|            Reserved                           |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                VXLAN Network Identifier (VNI) |   Reserved    |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+Taken from rfc7348
+```
+
+The endpoint of the tunnel, **VTEP (Virtual Tunnel End Point)** forms the control plane of VXLAN (overlay network). It maintains a mapping of internal MAC address to the outer IP address i.e., while sending a packet from A: 10.0.0.1 to B: 10.0.0.2. VTEP needs to learn that in order to get to 10.0.0.2, it needs to go through 192.168.56.12. It will maintain a mapping of MAC Addres of A to IP (192.168.56.12) of the VTEP at the other end. VTEP can learn of these mappings either through manual configuration, SDN push or using multicast (source learning through multicast).
+
+
+VMs in subnets (A and B in the above picture) are unaware of the VXLAN themselves, and they route the traffic as they normally would. For Example, say a VM (A, 10.0.0.1) wants to route traffic to another VM in same network (B, 10.0.0.2) located at a different physical server and network. VTEP reads the IP of 
+
+It would broadcast an ARP request for IP 10.0.0.2. VTEP of A will wrap that ARP request into a Multicast packet.
+It would send the MAC frame as it would if both were on the same physical network. VTEP on that host checks the MAC address of 10.0.0.2
 
 Following packet trace shows the VXLAN packet wrapper in UDP outer packet. UDP forms the overlay network and inner nodes (with IP 10.0.0.1) don't need to know about overlay network.
 
