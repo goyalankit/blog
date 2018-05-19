@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "Why VXLAN (rfc7348)?"
-date: 2017-06-24 10:04
+date: 2018-05-19 10:30
 comments: true
-published: false
+published: true
 categories: networks vxlan
 ---
 
@@ -12,7 +12,7 @@ From the [rfc7348](//tools.ietf.org/html/rfc7348#page-5)
 
 To understand VXLAN better, let's first understand what's subnetting and VLAN.
 
-Let's say we have a physical LAN where there are multiple hosts with IPs in `10.1.2.0/24` network. Each host can talk to the other host using a switch alone. Now, we want to group set of hosts and separate them from each other. What are our options?
+Let's say we have a physical LAN where there are multiple hosts with IPs in `10.1.2.0/24` network. Each host can talk to the other hosts using a switch alone. Now, we want to group set of hosts and separate them from each other. What are our options?
 
 # IP Subnetting
 The first thought that comes to my mind is IP subnetting. It can prevent two hosts in different subnets from talking to each other unless we explicitly allow it using a router.
@@ -56,7 +56,7 @@ Following up on the discussion above, let's say we need to be able to logically 
 
 Firstly, in order to provide a separation accross physical network, we need an underlay network. The requirement from underlay network (UDP) is that it should have ip connectivity between two networks. Note that the UDP port [4789](//www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml?search=4789) is reserved for VXLAN.
 
-Secondly, in order to provide separation within the same physical network, we need something similar to VLAN to identify the two logically different but numerically same IP subnets. This is where VNI (VXLAN network identifier) from VXLAN header is used. Similar, to VID of VLAN.
+Secondly, in order to provide separation within the same physical network, we need something similar to VLAN to identify the two logically different but numerically same IP subnets. This is where VNI (VXLAN network identifier) from VXLAN header is used. Similar to VID of VLAN.
 
 A VXLAN transmission looks something like this:
 
@@ -74,15 +74,19 @@ A VXLAN transmission looks something like this:
 Taken from rfc7348
 ```
 
-The endpoint of the tunnel, **VTEP (Virtual Tunnel End Point)** forms the control plane of VXLAN (overlay network). It maintains a mapping of internal MAC address to the outer IP address i.e., while sending a packet from A: 10.0.0.1 to B: 10.0.0.2. VTEP needs to learn that in order to get to 10.0.0.2, it needs to go through 192.168.56.12. It will maintain a mapping of MAC Addres of A to IP (192.168.56.12) of the VTEP at the other end. VTEP can learn of these mappings either through manual configuration, SDN push or using multicast (source learning through multicast).
+The endpoint of the tunnel, **VTEP (Virtual Tunnel End Point)** forms the control plane of VXLAN (overlay network). It maintains a mapping of internal (VM) MAC address to the outer IP address. VTEP can learn of these mappings from source MAC to destination IP addresses either through manual configuration, SDN push or using multicast (source learning through multicast)
 
 
-VMs in subnets (A and B in the above picture) are unaware of the VXLAN themselves, and they route the traffic as they normally would. For Example, say a VM (A, 10.0.0.1) wants to route traffic to another VM in same network (B, 10.0.0.2) located at a different physical server and network. VTEP reads the IP of 
+## Walkthrough
 
-It would broadcast an ARP request for IP 10.0.0.2. VTEP of A will wrap that ARP request into a Multicast packet.
-It would send the MAC frame as it would if both were on the same physical network. VTEP on that host checks the MAC address of 10.0.0.2
+Packet below shows a trace while sending a packet from `10.0.0.1` to `10.0.0.2`.<br/>
 
-Following packet trace shows the VXLAN packet wrapper in UDP outer packet. UDP forms the overlay network and inner nodes (with IP 10.0.0.1) don't need to know about overlay network.
+Assuming the mappings has already been learnt, while sending a packet from A: `10.0.0.1` to B: `10.0.0.2`:
+- VTEP will look up the mac address of `10.0.0.2` in its mapping and determine that it needs to go through `192.168.56.12` IP.
+- VTEP then encapsulates the packet from `10.0.0.1` in a layer 3 packet with source IP as `192.168.56.11` and destination IP as `192.168.56.12`.
+- It uses a dynamic source port (that allows for load balancing, etc) and the reserved `4789` as the destination port.
+- In addition, it also adds VNI (123 in example below) to distinguish between A and P.
+
 
 {:.image_size_600}
 ![](//gist.githubusercontent.com/goyalankit/df3686b62ac9bfd20f5eb292c02697bd/raw/d1920b1f0cabfb35a5e350de61f1e4535d39cc7f/vxlan_packet_trace_1.png)
@@ -91,11 +95,14 @@ Following packet trace shows the VXLAN packet wrapper in UDP outer packet. UDP f
 ![](//gist.githubusercontent.com/goyalankit/df3686b62ac9bfd20f5eb292c02697bd/raw/d1920b1f0cabfb35a5e350de61f1e4535d39cc7f/vxlan_packet_trace_2.png)
 
 # Conclusion
-VXLAN is an important piece of puzzle when it comes to scaling ipv4 and providing network abstractions. I hope you have a slightly better understanding of where VXLAN belongs in plethora of networking technologies.
+VXLAN is an important piece of puzzle when it comes to scaling IPv4 and providing network abstractions. Overlay networks are built upon this concept and there are several open source projects that make it easier to deploy these in production. If you want to learn more, you can checkout  [flannel](//github.com/coreos/flannel) that's often used with [Kubernetes](//kubernetes.io/) to setup these overlay networks. <br/>
 
+I hope you have a slightly better understanding of where VXLAN belongs in plethora of networking technologies. As always, I'd appreciate any feedback, or comments.
+
+---
 
 ## References:
 
 [1] [Packet trace for VXLAN - cloudshark](//www.cloudshark.org/captures/670aeb7bad79)<br/>
-[2] [RFC-7348: Virtual eXtensible Local Area Network (VXLAN)](//tools.ietf.org/html/rfc7348)
-
+[2] [RFC-7348: Virtual eXtensible Local Area Network (VXLAN)](//tools.ietf.org/html/rfc7348)<br/>
+[3] [Virtual Extensible LAN (VXLAN) Overview](//www.arista.com/assets/data/pdf/Whitepapers/Arista_Networks_VXLAN_White_Paper.pdf)
