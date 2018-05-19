@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Why VXLAN (rfc7348)?"
+title: "What is VXLAN (rfc7348)?"
 date: 2018-05-19 10:30
 comments: true
 published: true
