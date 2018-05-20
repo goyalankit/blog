@@ -22,7 +22,7 @@ layout: projects
 # Applications
 
 * [Chatty Meanbot](https://github.com/goyalankit/chatty-meanbot/) : A jabber client bot.
-* [CLI Resume](https://github.com/goyalankit/cli-resume) : Creates an online resume with command line interface using data from Linkedin. ([demo](https://resume.ankitgoyal.me/){:.projects.__report})
+* [CLI Resume](https://github.com/goyalankit/cli-resume) : Creates an online resume with command line interface using data from Linkedin. ([demo](https://cli-resume.herokuapp.com/){:.projects.__report})
 * [Listener Bot](https://github.com/goyalankit/listenerbot) : An android app to receive notifications using GCM
 * [Mr. Mean Bot](https://github.com/goyalankit/themeanbot) : Twitter Dictionary bot
 * [Reverse geo coding](https://github.com/goyalankit/reverse-geo-coding) : Address from coordinates using Yahoo! Api.
